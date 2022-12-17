@@ -6,4 +6,4 @@ Contraseña para postgres = "0000"
 py -m pip install psycopg2 <--- instalacion de conexion a BD
 
 
-Hola
+Hola mundo!
