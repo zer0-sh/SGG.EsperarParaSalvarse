@@ -1,0 +1,165 @@
+                   morado    dorado    cyan
+colors(normal) -> #9000BA ; #BA9000 ; #00BA90
+colors(light ) -> #D440FF ; #FFD440 ; #40FFD4
+
+tablaBD.config(
+    columns=('Nombre', 'Apellido', 'Genero', 'Direccion', 'Email','F_Nacimiento',
+             'Estado Civil', 'Tipo Afiliación', 'Telefono', 'Ciudad'))
+# heading
+tablaBD.heading('#0', text='ID', anchor='center')  # 'anchor' se refiere al lado
+tablaBD.heading('#1', text='Nombre', anchor='w')  # de que estará de la celda
+tablaBD.heading('#2', text='Apellido', anchor='w')
+tablaBD.heading('#3', text='Genero', anchor='w')
+tablaBD.heading('#4', text='Direccion', anchor='w')
+tablaBD.heading('#5', text='Email', anchor='w')
+tablaBD.heading('#6', text='F_Nacimiento', anchor='w')
+tablaBD.heading('#7', text='Estado Civil', anchor='w')
+tablaBD.heading('#8', text='Tipo Afiliación', anchor='w')
+tablaBD.heading('#9', text='Telefono', anchor='w')
+tablaBD.heading('#10', text='Ciudad', anchor='w')
+# edit_columns
+tablaBD.column('#0', stretch=False, minwidth=0, width=60)
+tablaBD.column('#1', stretch=False, minwidth=0, width=130)
+tablaBD.column('#2', stretch=False, minwidth=0, width=130)
+tablaBD.column('#3', stretch=False, minwidth=0, width=70)
+tablaBD.column('#4', stretch=False, minwidth=0, width=140)
+tablaBD.column('#5', stretch=False, minwidth=0, width=200)
+tablaBD.column('#6', stretch=False, minwidth=0, width=120)
+tablaBD.column('#7', stretch=False, minwidth=0, width=100)
+tablaBD.column('#8', stretch=False, minwidth=0, width=120)
+tablaBD.column('#9', stretch=False, minwidth=0, width=100)
+tablaBD.column('#10', stretch=False, minwidth=25, width=110)
+# add_dates
+tablaBD.insert(parent='', index='end', text='00001', iid=0,
+               values=('Steban', 'Kent', 'Female', 'El primer puente', 'juan.veloza@correounivalle.edu.co',
+                       '2001-02-31', 'Buitre', 'Contrabandista', '321-633-2515', 'Maracaibo'))
+tablaBD.insert(parent='', index='end', text='00002', iid=1,
+               values=('Maluma', 'Babies', 'Female', 'Agua Clara', 'malu.sanchez@correounivalle.edu.co',
+                       '2001-02-31', 'Casada', 'Cizañosa', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00003', iid=2,
+               values=('Austin', 'Backyardigan', 'Male', 'Aquí', 'austin.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00004', iid=3,
+               values=('Yunikua', 'Backyardigan', 'Female', 'Aquí', 'yunikua.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00005', iid=4,
+               values=('Tayron', 'Backyardigan', 'Male', 'Aquí', 'tayron.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00006', iid=5,
+               values=('Tasha', 'Backyardigan', 'Female', 'Aquí', 'tasha.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00007', iid=6,
+               values=('Pablo', 'Backyardigan', 'Male', 'Aquí', 'pablo.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00008', iid=7,
+               values=('Kaibert', 'Smith', 'Male', 'El otro puente', 'kaibert.smith@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00009', iid=8,
+               values=('Chucho', 'Gongora', 'Male', 'Aquí', 'jesus.gongora@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00010', iid=9,
+               values=('Hibrido', 'Petro', 'Male', 'Aquí', 'hybri.petro@correounivalle.edu.co',
+                       '2001-02-31', 'Comprometido', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00011', iid=10,
+               values=('Steban', 'Kent', 'Female', 'El primer puente', 'juan.veloza@correounivalle.edu.co',
+                       '2001-02-31', 'Buitre', 'Contrabandista', '321-633-2515', 'Maracaibo'))
+tablaBD.insert(parent='', index='end', text='00012', iid=11,
+               values=('Maluma', 'Babies', 'Female', 'Agua Clara', 'malu.sanchez@correounivalle.edu.co',
+                       '2001-02-31', 'Casada', 'Cizañosa', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00013', iid=12,
+               values=('Austin', 'Backyardigan', 'Male', 'Aquí', 'austin.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00014', iid=13,
+               values=('Yunikua', 'Backyardigan', 'Female', 'Aquí', 'yunikua.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00015', iid=14,
+               values=('Tayron', 'Backyardigan', 'Male', 'Aquí', 'tayron.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00016', iid=15,
+               values=('Tasha', 'Backyardigan', 'Female', 'Aquí', 'tasha.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00017', iid=16,
+               values=('Pablo', 'Backyardigan', 'Male', 'Aquí', 'pablo.back@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00018', iid=17,
+               values=('Kaibert', 'Smith', 'Male', 'El otro puente', 'kaibert.smith@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00019', iid=18,
+               values=('Chucho', 'Gongora', 'Male', 'Aquí', 'jesus.gongora@correounivalle.edu.co',
+                       '2001-02-31', 'NoSabe/NoResponde', 'activo', '321-633-2515', 'Tuluá'))
+tablaBD.insert(parent='', index='end', text='00020', iid=19,
+               values=('Hibrido', 'Petro', 'Male', 'Aquí', 'hybri.petro@correounivalle.edu.co',
+                       '2001-02-31', 'Comprometido', 'activo', '321-633-2515', 'Tuluá'))
+
+# ----------------------------------------------------------------
+
+# SCROLLBAR
+scroll_ver = ttk.Scrollbar(admin_frame, orient='vertical')
+scroll_hor = ttk.Scrollbar(admin_frame, orient='horizontal')
+# tabla de celdas ('treeview')
+tablaBD = ttk.Treeview(admin_frame,)
+tablaBD.place(relx=0.01,rely=0.5, relwidth=0.96, relheight=0.385)
+tablaBD.configure(yscrollcommand=scroll_ver.set, xscrollcommand=scroll_hor.set)
+tablaBD.configure(selectmode='extended')
+
+scroll_ver.configure(command=tablaBD.yview)
+scroll_hor.configure(command=tablaBD.xview)
+scroll_ver.place(relx=0.975, rely=0.5, width=22, relheight=0.42)
+scroll_hor.place(relx=0.01, rely=0.89, relwidth=0.96, height=22)
+
+tablaBD.config(
+    columns=(
+        'Nombre', 'Apellido', 'Genero', 'Direccion', 'Email','Fecha de Nac',
+        'Estado Civil', 'Tipo Afiliación', 'Telefono', 'Ciudad', 'IPS'))
+# heading
+tablaBD.heading('#0', text='ID', anchor='center')  # 'anchor' se refiere al lado
+tablaBD.heading('#1', text='Nombre', anchor='w')  # de que estará de la celda
+tablaBD.heading('#2', text='Apellido', anchor='w')
+tablaBD.heading('#3', text='Genero', anchor='w')
+tablaBD.heading('#4', text='Direccion', anchor='w')
+tablaBD.heading('#5', text='Email', anchor='w')
+tablaBD.heading('#6', text='Fecha de Nac', anchor='w')
+tablaBD.heading('#7', text='Estado Civil', anchor='w')
+tablaBD.heading('#8', text='Tipo Afiliación', anchor='w')
+tablaBD.heading('#9', text='Telefono', anchor='w')
+tablaBD.heading('#10', text='Ciudad', anchor='w')
+tablaBD.heading('#11', text='IPS', anchor='w')
+# edit_columns
+tablaBD.column('#0', stretch=False, minwidth=10, width=60)
+tablaBD.column('#1', stretch=False, minwidth=0, width=130)
+tablaBD.column('#2', stretch=False, minwidth=0, width=130)
+tablaBD.column('#3', stretch=False, minwidth=0, width=70)
+tablaBD.column('#4', stretch=False, minwidth=0, width=140)
+tablaBD.column('#5', stretch=False, minwidth=0, width=220)
+tablaBD.column('#6', stretch=False, minwidth=0, width=100)
+tablaBD.column('#7', stretch=False, minwidth=0, width=100)
+tablaBD.column('#8', stretch=False, minwidth=0, width=120)
+tablaBD.column('#9', stretch=False, minwidth=0, width=100)
+tablaBD.column('#10', stretch=False, minwidth=0, width=110)
+tablaBD.column('#11', stretch=False, minwidth=0, width=110)
+    # add_dates
+tablaBD.insert(
+    parent='', index='end', text='1234', iid=0,
+    values=('Pepito', 'Grillo', 'Masculino', 'La porra',
+            'pepito@correo.com','1990-01-01', 'Soltero',
+            'Cotizante', '2242424', 'Cali', '1'))
+tablaBD.insert(
+    parent='', index='end', text='2', iid=1,
+    values=('Benito', 'Juarez', '', '', '','', '', '', '', '', ''))
+tablaBD.insert(
+    parent='', index='end', text='5', iid=2,
+    values=('Benito', 'Arroz', '', '', '','', '', '', '', '', ''))
+
+# --------------------------------------------------------
+
+Steban
+Kent
+Comedia
+Maracaibo
+juan.veloza@correounivalle.edu.co
+2001-12-06
+Gusanero
+Cotizante
+666666
+Tuluá
+1
