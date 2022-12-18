@@ -146,92 +146,97 @@ x_col_izq = 220  # 220
 x_col_der = 690
 mi_id = tk.StringVar()
 id_entry = tk.Entry(admin_frame, textvariable=mi_id, font=('Bold', 20))
-id_entry.place(x=x_col_izq, y=150, width=ancho, height=alto)
+id_entry.place(x=x_col_izq, y=100, width=ancho, height=alto)
 
 mi_nombre = tk.StringVar()
 nombre_entry = tk.Entry(admin_frame, textvariable=mi_nombre, font=('Bold', 20))
-nombre_entry.place(x=x_col_izq, y=200, width=ancho, height=alto)
+nombre_entry.place(x=x_col_izq, y=150, width=ancho, height=alto)
 
 mi_apellido = tk.StringVar()
 apellido_entry = tk.Entry(admin_frame, textvariable=mi_apellido, font=('Bold', 20))
-apellido_entry.place(x=x_col_izq, y=250, width=ancho, height=alto)
+apellido_entry.place(x=x_col_izq, y=200, width=ancho, height=alto)
 
 mi_genero = tk.StringVar()
 genero_entry = tk.OptionMenu(admin_frame, mi_genero, *['Masculino', 'Femenino'])
-genero_entry.place(x=x_col_izq, y=300, width=ancho, height=alto)
+genero_entry.place(x=x_col_izq, y=250, width=ancho, height=alto)
 
 mi_direccion = tk.StringVar()
 direccion_entry = tk.Entry(admin_frame, textvariable=mi_direccion, font=('Bold', 20))
-direccion_entry.place(x=x_col_izq, y=350, width=ancho, height=alto)
+direccion_entry.place(x=x_col_izq, y=300, width=ancho, height=alto)
 
 mi_email = tk.StringVar()
 email_entry = tk.Entry(admin_frame, textvariable=mi_email, font=('Bold', 20))
-email_entry.place(x=x_col_izq, y=400, width=ancho, height=alto)
+email_entry.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
 mi_fecha = tk.StringVar()
 fecha_nac_dateentry = DateEntry(admin_frame, textvariable=mi_fecha, font=('Bold', 20))
-fecha_nac_dateentry.place(x=x_col_izq, y=450, width=ancho, height=alto)
+fecha_nac_dateentry.place(x=x_col_izq, y=400, width=ancho, height=alto)
 
 mi_estado_civil = tk.StringVar()
 estado_civil_entry = tk.OptionMenu(admin_frame, mi_estado_civil, *['Soltero', 'Casado', 'Union Libre'])
-estado_civil_entry.place(x=x_col_izq, y=500, width=ancho, height=alto)
+estado_civil_entry.place(x=x_col_izq, y=450, width=ancho, height=alto)
 
 mi_tipo_afil = tk.StringVar()
 tipo_afil_entry = tk.OptionMenu(admin_frame, mi_tipo_afil, *['Cotizante', 'Beneficiario'])
-tipo_afil_entry.place(x=x_col_izq, y=550, width=ancho, height=alto)
+tipo_afil_entry.place(x=x_col_izq, y=500, width=ancho, height=alto)
 
 mi_telefono = tk.StringVar()
 telefono_entry = tk.Entry(admin_frame, textvariable=mi_telefono, font=('Bold', 20))
-telefono_entry.place(x=x_col_izq, y=600, width=ancho, height=alto)
+telefono_entry.place(x=x_col_izq, y=550, width=ancho, height=alto)
 
 mi_ciudad = tk.StringVar()
 ciudad_entry = tk.Entry(admin_frame, textvariable=mi_ciudad, font=('Bold', 20))
-ciudad_entry.place(x=x_col_izq, y=650, width=ancho, height=alto)
-#-------- der
+ciudad_entry.place(x=x_col_izq, y=600, width=ancho, height=alto)
+
 mi_ips = tk.StringVar()
 ips_entry = tk.OptionMenu(admin_frame, mi_ips, *['40001', '40002', '40003', '40004', '40005'])
-ips_entry.place(x=x_col_der, y=150, width=ancho, height=alto)
+ips_entry.place(x=x_col_izq, y=650, width=ancho, height=alto)
 
+#-------- COLUMNA DERRECHA
 mi_ordenes = tk.StringVar()
 ordenes_entry = tk.OptionMenu(admin_frame, mi_ordenes, *['20001', '20002', '20003', '20004', '20005', '20006'])
-ordenes_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
+ordenes_entry.place(x=x_col_der, y=100, width=ancho, height=alto)
 
 mi_parentesco = tk.StringVar()
 parentesco_entry = tk.OptionMenu(
     admin_frame, mi_parentesco, *['Cónyuge', 'Padre', 'Madre', 'Hijo', 'Hermanos', 'Amigos'])
-parentesco_entry.place(x=x_col_der, y=250, width=ancho, height=alto)
+parentesco_entry.place(x=x_col_der, y=150, width=ancho, height=alto)
+
+mi_beneficiario = tk.StringVar()
+beneficiario_entry = tk.Entry(admin_frame, textvariable=mi_beneficiario, font=('Bold', 20))
+beneficiario_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
 
 mi_salario = tk.StringVar()
 salario_entry = tk.Entry(admin_frame, textvariable=mi_salario, font=('Bold', 20))
-salario_entry.place(x=x_col_der, y=300, width=ancho, height=alto)
+salario_entry.place(x=x_col_der, y=250, width=ancho, height=alto)
 
 mi_estado_afiliacion = tk.StringVar()
 estado_afil_entry = tk.OptionMenu(admin_frame, mi_estado_afiliacion, *['Activo', 'Retirado', 'Inactivo'])
-estado_afil_entry.place(x=x_col_der, y=350, width=ancho, height=alto)
+estado_afil_entry.place(x=x_col_der, y=300, width=ancho, height=alto)
 
 mi_fecha_afiliacion = tk.StringVar()
 fecha_afil_dateentry = DateEntry(admin_frame, textvariable=mi_fecha_afiliacion, font=('Bold', 20))
-fecha_afil_dateentry.place(x=x_col_der, y=400, width=ancho, height=alto)
+fecha_afil_dateentry.place(x=x_col_der, y=350, width=ancho, height=alto)
 
 mi_rango_salarial = tk.StringVar()
 rango_salarial_entry = tk.OptionMenu(admin_frame, mi_rango_salarial, *['A', 'B', 'C'])
-rango_salarial_entry.place(x=x_col_der, y=450, width=ancho, height=alto)
+rango_salarial_entry.place(x=x_col_der, y=400, width=ancho, height=alto)
 
 mi_estado = tk.StringVar()
-estado_entry = tk.OptionMenu(admin_frame, mi_estado, *['Activo', 'Retirado', 'Inactivo'])
-estado_entry.place(x=x_col_der, y=500, width=ancho, height=alto)
+estado_entry = tk.OptionMenu(admin_frame, mi_estado, *['Activo', 'Inactivo'])
+estado_entry.place(x=x_col_der, y=450, width=ancho, height=alto)
 
 mi_nombre_empresa = tk.StringVar()
 nombre_empresa_entry = tk.Entry(admin_frame, textvariable=mi_nombre_empresa, font=('Bold', 20))
-nombre_empresa_entry.place(x=x_col_der, y=550, width=ancho, height=alto)
+nombre_empresa_entry.place(x=x_col_der, y=500, width=ancho, height=alto)
 
 mi_rut = tk.StringVar()
 rut_entry = tk.Entry(admin_frame, textvariable=mi_rut, font=('Bold', 20))
-rut_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
+rut_entry.place(x=x_col_der, y=550, width=ancho, height=alto)
 
 mi_contrato = tk.StringVar()
 contrato_entry = tk.OptionMenu(admin_frame, mi_contrato, *['60001', '60002', '60003', '60004', '60005', '60006'])
-contrato_entry.place(x=x_col_der, y=650, width=ancho, height=alto)
+contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
 
 def deshabilitar_entries():
     mi_id = None
@@ -292,98 +297,102 @@ def etiquetas():
     x_col_izq = 0   # original: 20
     x_col_der = 470  # original: 510
     title_label = tk.Label(
-        admin_frame, text='AFILIADOS', font=('Bold', 30), bg='#139a80', fg='white',
+        admin_frame, text='AFILIADOS', font=('Bold', 40), bg='#139a80', fg='white',
         anchor='s')
-    title_label.place(x=450, y=40, width=300, height=50)
+    title_label.place(x=450, y=20, width=300, height=60)
 
     id_label = tk.Label(
         admin_frame, text='ID:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    id_label.place(x=x_col_izq, y=150, width=ancho, height=alto)
+    id_label.place(x=x_col_izq, y=100, width=ancho, height=alto)
 
     nombre_label = tk.Label(
         admin_frame, text='NOMBRE:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    nombre_label.place(x=x_col_izq, y=200, width=ancho, height=alto)
+    nombre_label.place(x=x_col_izq, y=150, width=ancho, height=alto)
 
     apellido_label = tk.Label(
         admin_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    apellido_label.place(x=x_col_izq, y=250, width=ancho, height=alto)
+    apellido_label.place(x=x_col_izq, y=200, width=ancho, height=alto)
 
     genero_label = tk.Label(
         admin_frame, text='GÉNERO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    genero_label.place(x=x_col_izq, y=300, width=ancho, height=alto)
+    genero_label.place(x=x_col_izq, y=250, width=ancho, height=alto)
 
     direccion_label = tk.Label(
         admin_frame, text='DIRECCIÓN:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    direccion_label.place(x=x_col_izq, y=350, width=ancho, height=alto)
+    direccion_label.place(x=x_col_izq, y=300, width=ancho, height=alto)
 
     email_label = tk.Label(
         admin_frame, text='EMAIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    email_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
+    email_label.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
     f_nac_label = tk.Label(
         admin_frame, text='FECHA NAC:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    f_nac_label.place(x=x_col_izq, y=450, width=ancho, height=alto)
+    f_nac_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
 
     estado_civil_label = tk.Label(
         admin_frame, text='ESTADO CIVIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_civil_label.place(x=x_col_izq, y=500, width=ancho, height=alto)
+    estado_civil_label.place(x=x_col_izq, y=450, width=ancho, height=alto)
 
     tipo_afil_label = tk.Label(
         admin_frame, text='TIPO DE AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    tipo_afil_label.place(x=x_col_izq, y=550, width=ancho, height=alto)
+    tipo_afil_label.place(x=x_col_izq, y=500, width=ancho, height=alto)
 
     telefono_label = tk.Label(
         admin_frame, text='TELÉFONO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    telefono_label.place(x=x_col_izq, y=600, width=ancho, height=alto)
+    telefono_label.place(x=x_col_izq, y=550, width=ancho, height=alto)
     
     ciudad_label = tk.Label(
         admin_frame, text='CIUDAD:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ciudad_label.place(x=x_col_izq, y=650, width=ancho, height=alto)
-    
-    #-------- COLUMNA DERECHA
+    ciudad_label.place(x=x_col_izq, y=600, width=ancho, height=alto)
+
     ips_label = tk.Label(
         admin_frame, text='IPS:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ips_label.place(x=x_col_der, y=150, width=ancho, height=alto)
-    
+    ips_label.place(x=x_col_izq, y=650, width=ancho, height=alto)
+        
+    #-------- COLUMNA DERECHA
     ordenes_label = tk.Label(
         admin_frame, text='ORDENES:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ordenes_label.place(x=x_col_der, y=200, width=ancho, height=alto)
+    ordenes_label.place(x=x_col_der, y=100, width=ancho, height=alto)
     
     parentesco_label = tk.Label(
         admin_frame, text='PARENTESCO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    parentesco_label.place(x=x_col_der, y=250, width=ancho, height=alto)
+    parentesco_label.place(x=x_col_der, y=150, width=ancho, height=alto)
+    
+    beneficiario_label = tk.Label(
+        admin_frame, text='BENEFICIARIO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    beneficiario_label.place(x=x_col_der, y=200, width=ancho, height=alto)
     
     salario_label = tk.Label(
         admin_frame, text='SALARIO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    salario_label.place(x=x_col_der, y=300, width=ancho, height=alto)
+    salario_label.place(x=x_col_der, y=250, width=ancho, height=alto)
     
     estado_afil_label = tk.Label(
         admin_frame, text='ESTADO AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_afil_label.place(x=x_col_der, y=350, width=ancho, height=alto)
+    estado_afil_label.place(x=x_col_der, y=300, width=ancho, height=alto)
     
     fecha_afil_label = tk.Label(
         admin_frame, text='FECHA AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    fecha_afil_label.place(x=x_col_der, y=400, width=ancho, height=alto)
+    fecha_afil_label.place(x=x_col_der, y=350, width=ancho, height=alto)
     
     rango_salarial_label = tk.Label(
         admin_frame, text='RAN SALARIAL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    rango_salarial_label.place(x=x_col_der, y=450, width=ancho, height=alto)
+    rango_salarial_label.place(x=x_col_der, y=400, width=ancho, height=alto)
    
     estado_label = tk.Label(
         admin_frame, text='ESTADO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_label.place(x=x_col_der, y=500, width=ancho, height=alto)
+    estado_label.place(x=x_col_der, y=450, width=ancho, height=alto)
     
     nombre_empresa_label = tk.Label(
         admin_frame, text='NOM EMPRESA:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    nombre_empresa_label.place(x=x_col_der, y=550, width=ancho, height=alto)
+    nombre_empresa_label.place(x=x_col_der, y=500, width=ancho, height=alto)
     
     rut_label = tk.Label(
         admin_frame, text='RUT:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    rut_label.place(x=x_col_der, y=600, width=ancho, height=alto)
+    rut_label.place(x=x_col_der, y=550, width=ancho, height=alto)
     
     contrato_label = tk.Label(
         admin_frame, text='CONTRATO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    contrato_label.place(x=x_col_der, y=650, width=ancho, height=alto)
+    contrato_label.place(x=x_col_der, y=600, width=ancho, height=alto)
     
 etiquetas()
 

@@ -19,7 +19,7 @@ class Afiliados:
         self.ciudad = ciudad
         self.ips = ips
         self.ordenes = ordenes
-    
+
 class Beneficiarios(Afiliados):
     def __init__(
         self, nombres, apellidos, genero, dir, email, f_nac, est_civ, 
