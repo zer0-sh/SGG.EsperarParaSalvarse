@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from model.entidades import Afiliados, consultar, editar, agregar
+from tkcalendar import DateEntry
+from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, editar, agregar_beneficiario
 
 root = tk.Tk()
 
@@ -15,7 +16,7 @@ wventana = 1280
 hventana = 720
 pwidth = round(wtotal/2-wventana/2)
 pheight = round(htotal/2-hventana/2)
-root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
+root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight-50))
 
 main_frame = tk.Frame(root, bg='white') 
 """ Generamos un nuevo objeto frame, que se podrá remplazar por otro. 
@@ -99,79 +100,138 @@ btn_admin_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
 btn_admin_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
-
+alto_btn = 90    # original: 130
+ancho_btn = 320  # original: 280
+x_btn = 940      # original: 980
 btn_consulta = tk.Button(admin_frame)
-btn_consulta.place(x=990, y=120, width=270, height=130)
+btn_consulta.place(x=x_btn, y=100, width=ancho_btn, height=alto_btn)
 btn_consulta.config(
     text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 28), activebackground='#35BD6F')
 
-btn_nuevo = tk.Button(admin_frame)
-btn_nuevo.place(x=990, y=270, width=270, height=130)
-btn_nuevo.config(
-    text='NUEVO', cursor='hand2', bg='#0a5245', fg='white',
+btn_nuevo_beneficiario = tk.Button(admin_frame)
+btn_nuevo_beneficiario.place(x=x_btn, y=200, width=ancho_btn, height=alto_btn)
+btn_nuevo_beneficiario.config(
+    text='NUEVO\nBENEFICIARIO', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_nuevo_dependiente = tk.Button(admin_frame)
+btn_nuevo_dependiente.place(x=x_btn, y=300, width=ancho_btn, height=alto_btn)
+btn_nuevo_dependiente.config(
+    text='NUEVO\nDEPENDIENTE', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_nuevo_independiente = tk.Button(admin_frame)
+btn_nuevo_independiente.place(x=x_btn, y=400, width=ancho_btn, height=alto_btn)
+btn_nuevo_independiente.config(
+    text='NUEVO\nINDEPENDIENTE', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 28), activebackground='#35BD6F')
 
 btn_guardar = tk.Button(admin_frame)
-btn_guardar.place(x=990, y=420, width=270, height=130)
+btn_guardar.place(x=x_btn, y=500, width=ancho_btn, height=alto_btn)
 btn_guardar.config(
     text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 28), activebackground='#35BD6F')
 
 btn_eliminar = tk.Button(admin_frame)
-btn_eliminar.place(x=990, y=570, width=270, height=130)
+btn_eliminar.place(x=x_btn, y=600, width=ancho_btn, height=alto_btn)
 btn_eliminar.config(
     text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 28), activebackground='#35BD6F')
 
-# entries
+# ENTRIES and DATEENTRIES
+ancho = 230  # original: 200
+alto = 40    # original: 40
+x_col_izq = 220  # 220
+x_col_der = 690
 mi_id = tk.StringVar()
 id_entry = tk.Entry(admin_frame, textvariable=mi_id, font=('Bold', 20))
-id_entry.place(x=220, y=150, width=200, height=40)
+id_entry.place(x=x_col_izq, y=150, width=ancho, height=alto)
 
 mi_nombre = tk.StringVar()
 nombre_entry = tk.Entry(admin_frame, textvariable=mi_nombre, font=('Bold', 20))
-nombre_entry.place(x=220, y=240, width=200, height=40)
+nombre_entry.place(x=x_col_izq, y=200, width=ancho, height=alto)
 
 mi_apellido = tk.StringVar()
 apellido_entry = tk.Entry(admin_frame, textvariable=mi_apellido, font=('Bold', 20))
-apellido_entry.place(x=220, y=330, width=200, height=40)
+apellido_entry.place(x=x_col_izq, y=250, width=ancho, height=alto)
 
 mi_genero = tk.StringVar()
-genero_entry = tk.Entry(admin_frame, textvariable=mi_genero, font=('Bold', 20))
-genero_entry.place(x=220, y=420, width=200, height=40)
+genero_entry = tk.OptionMenu(admin_frame, mi_genero, *['Masculino', 'Femenino'])
+genero_entry.place(x=x_col_izq, y=300, width=ancho, height=alto)
 
 mi_direccion = tk.StringVar()
 direccion_entry = tk.Entry(admin_frame, textvariable=mi_direccion, font=('Bold', 20))
-direccion_entry.place(x=220, y=510, width=200, height=40)
+direccion_entry.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
 mi_email = tk.StringVar()
 email_entry = tk.Entry(admin_frame, textvariable=mi_email, font=('Bold', 20))
-email_entry.place(x=220, y=600, width=200, height=40)
-#-------- der
+email_entry.place(x=x_col_izq, y=400, width=ancho, height=alto)
+
 mi_fecha = tk.StringVar()
-f_nac_entry = tk.Entry(admin_frame, textvariable=mi_fecha, font=('Bold', 20))
-f_nac_entry.place(x=710, y=150, width=200, height=40)
+fecha_nac_dateentry = DateEntry(admin_frame, textvariable=mi_fecha, font=('Bold', 20))
+fecha_nac_dateentry.place(x=x_col_izq, y=450, width=ancho, height=alto)
 
 mi_estado_civil = tk.StringVar()
-estado_civil_entry = tk.Entry(admin_frame, textvariable=mi_estado_civil, font=('Bold', 20))
-estado_civil_entry.place(x=710, y=240, width=200, height=40)
+estado_civil_entry = tk.OptionMenu(admin_frame, mi_estado_civil, *['Soltero', 'Casado', 'Union Libre'])
+estado_civil_entry.place(x=x_col_izq, y=500, width=ancho, height=alto)
 
 mi_tipo_afil = tk.StringVar()
-tipo_afil_entry = tk.Entry(admin_frame, textvariable=mi_tipo_afil, font=('Bold', 20))
-tipo_afil_entry.place(x=710, y=330, width=200, height=40)
+tipo_afil_entry = tk.OptionMenu(admin_frame, mi_tipo_afil, *['Cotizante', 'Beneficiario'])
+tipo_afil_entry.place(x=x_col_izq, y=550, width=ancho, height=alto)
 
 mi_telefono = tk.StringVar()
 telefono_entry = tk.Entry(admin_frame, textvariable=mi_telefono, font=('Bold', 20))
-telefono_entry.place(x=710, y=420, width=200, height=40)
+telefono_entry.place(x=x_col_izq, y=600, width=ancho, height=alto)
 
 mi_ciudad = tk.StringVar()
 ciudad_entry = tk.Entry(admin_frame, textvariable=mi_ciudad, font=('Bold', 20))
-ciudad_entry.place(x=710, y=510, width=200, height=40)
-
+ciudad_entry.place(x=x_col_izq, y=650, width=ancho, height=alto)
+#-------- der
 mi_ips = tk.StringVar()
-ips_entry = tk.Entry(admin_frame, textvariable=mi_ips, font=('Bold', 20))
-ips_entry.place(x=710, y=600, width=200, height=40)
+ips_entry = tk.OptionMenu(admin_frame, mi_ips, *['40001', '40002', '40003', '40004', '40005'])
+ips_entry.place(x=x_col_der, y=150, width=ancho, height=alto)
+
+mi_ordenes = tk.StringVar()
+ordenes_entry = tk.OptionMenu(admin_frame, mi_ordenes, *['20001', '20002', '20003', '20004', '20005', '20006'])
+ordenes_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
+
+mi_parentesco = tk.StringVar()
+parentesco_entry = tk.OptionMenu(
+    admin_frame, mi_parentesco, *['Cónyuge', 'Padre', 'Madre', 'Hijo', 'Hermanos', 'Amigos'])
+parentesco_entry.place(x=x_col_der, y=250, width=ancho, height=alto)
+
+mi_salario = tk.StringVar()
+salario_entry = tk.Entry(admin_frame, textvariable=mi_salario, font=('Bold', 20))
+salario_entry.place(x=x_col_der, y=300, width=ancho, height=alto)
+
+mi_estado_afiliacion = tk.StringVar()
+estado_afil_entry = tk.OptionMenu(admin_frame, mi_estado_afiliacion, *['Activo', 'Retirado', 'Inactivo'])
+estado_afil_entry.place(x=x_col_der, y=350, width=ancho, height=alto)
+
+mi_fecha_afiliacion = tk.StringVar()
+fecha_afil_dateentry = DateEntry(admin_frame, textvariable=mi_fecha_afiliacion, font=('Bold', 20))
+fecha_afil_dateentry.place(x=x_col_der, y=400, width=ancho, height=alto)
+
+mi_rango_salarial = tk.StringVar()
+rango_salarial_entry = tk.OptionMenu(admin_frame, mi_rango_salarial, *['A', 'B', 'C'])
+rango_salarial_entry.place(x=x_col_der, y=450, width=ancho, height=alto)
+
+mi_estado = tk.StringVar()
+estado_entry = tk.OptionMenu(admin_frame, mi_estado, *['Activo', 'Retirado', 'Inactivo'])
+estado_entry.place(x=x_col_der, y=500, width=ancho, height=alto)
+
+mi_nombre_empresa = tk.StringVar()
+nombre_empresa_entry = tk.Entry(admin_frame, textvariable=mi_nombre_empresa, font=('Bold', 20))
+nombre_empresa_entry.place(x=x_col_der, y=550, width=ancho, height=alto)
+
+mi_rut = tk.StringVar()
+rut_entry = tk.Entry(admin_frame, textvariable=mi_rut, font=('Bold', 20))
+rut_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
+
+mi_contrato = tk.StringVar()
+contrato_entry = tk.OptionMenu(admin_frame, mi_contrato, *['60001', '60002', '60003', '60004', '60005', '60006'])
+contrato_entry.place(x=x_col_der, y=650, width=ancho, height=alto)
 
 def deshabilitar_entries():
     mi_id = None
@@ -187,77 +247,144 @@ def deshabilitar_entries():
     mi_telefono.set('')
     mi_ciudad.set('')
     mi_ips.set('')
+    mi_ordenes.set('')
+    mi_parentesco.set('')
+    mi_salario.set('')
+    mi_estado_afiliacion.set('')
+    mi_fecha_afiliacion.set('')
+    mi_rango_salarial.set('')
+    mi_estado.set('')
+    mi_nombre_empresa.set('')
+    mi_rut.set('')
+    mi_contrato.set('')
     
+    color = '#139a80'
     
     id_entry.config(state='normal')
-    nombre_entry.config(state='disabled')
-    apellido_entry.config(state='disabled')
-    genero_entry.config(state='disabled')
-    direccion_entry.config(state='disabled')
-    email_entry.config(state='disabled')
-    f_nac_entry.config(state='disabled')
-    estado_civil_entry.config(state='disabled')
-    tipo_afil_entry.config(state='disabled')
-    telefono_entry.config(state='disabled')
-    ciudad_entry.config(state='disabled')
-    ips_entry.config(state='disabled')
+    nombre_entry.config(state='disabled', background=color, )
+    apellido_entry.config(state='disabled', bg=color)
+    genero_entry.config(state='disabled', bg=color)
+    direccion_entry.config(state='disabled', bg=color)
+    email_entry.config(state='disabled', bg=color)
+    fecha_nac_dateentry.config(state='disabled')
+    estado_civil_entry.config(state='disabled', bg=color)
+    tipo_afil_entry.config(state='disabled', bg=color)
+    telefono_entry.config(state='disabled', bg=color)
+    ciudad_entry.config(state='disabled', bg=color)
+    ips_entry.config(state='disabled', bg=color)
+    ordenes_entry.config(state='disabled', bg=color)
+    parentesco_entry.config(state='disabled', bg=color)
+    salario_entry.config(state='disabled', bg=color)
+    estado_afil_entry.config(state='disabled', bg=color)
+    fecha_afil_dateentry.config(state='disabled')
+    rango_salarial_entry.config(state='disabled', bg=color)
+    estado_entry.config(state='disabled', bg=color)
+    nombre_empresa_entry.config(state='disabled', bg=color)
+    rut_entry.config(state='disabled', bg=color)
+    contrato_entry.config(state='disabled', bg=color)
     
     btn_guardar.config(state='disabled')
-# labels
+
+# Labels
 def etiquetas():
-    admin_label = tk.Label(
-        admin_frame, text='ADMINISTRADOR', font=('Bold', 30), bg='#139a80', fg='white',
+    ancho = 220  # original: 200
+    alto = 40    # original: 40
+    x_col_izq = 0   # original: 20
+    x_col_der = 470  # original: 510
+    title_label = tk.Label(
+        admin_frame, text='AFILIADOS', font=('Bold', 30), bg='#139a80', fg='white',
         anchor='s')
-    admin_label.place(x=450, y=40, width=350, height=50)
+    title_label.place(x=450, y=40, width=300, height=50)
 
     id_label = tk.Label(
         admin_frame, text='ID:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    id_label.place(x=20, y=150, width=200, height=40)
+    id_label.place(x=x_col_izq, y=150, width=ancho, height=alto)
 
     nombre_label = tk.Label(
         admin_frame, text='NOMBRE:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    nombre_label.place(x=20, y=240, width=200, height=40)
+    nombre_label.place(x=x_col_izq, y=200, width=ancho, height=alto)
 
     apellido_label = tk.Label(
         admin_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    apellido_label.place(x=20, y=330, width=200, height=40)
+    apellido_label.place(x=x_col_izq, y=250, width=ancho, height=alto)
 
     genero_label = tk.Label(
         admin_frame, text='GÉNERO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    genero_label.place(x=20, y=420, width=200, height=40)
+    genero_label.place(x=x_col_izq, y=300, width=ancho, height=alto)
 
     direccion_label = tk.Label(
         admin_frame, text='DIRECCIÓN:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    direccion_label.place(x=20, y=510, width=200, height=40)
+    direccion_label.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
     email_label = tk.Label(
         admin_frame, text='EMAIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    email_label.place(x=20, y=600, width=200, height=40)
-    #-------- der
+    email_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
+
     f_nac_label = tk.Label(
         admin_frame, text='FECHA NAC:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    f_nac_label.place(x=510, y=150, width=200, height=40)
+    f_nac_label.place(x=x_col_izq, y=450, width=ancho, height=alto)
 
     estado_civil_label = tk.Label(
         admin_frame, text='ESTADO CIVIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_civil_label.place(x=510, y=240, width=200, height=40)
+    estado_civil_label.place(x=x_col_izq, y=500, width=ancho, height=alto)
 
     tipo_afil_label = tk.Label(
         admin_frame, text='TIPO DE AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    tipo_afil_label.place(x=510, y=330, width=200, height=40)
+    tipo_afil_label.place(x=x_col_izq, y=550, width=ancho, height=alto)
 
     telefono_label = tk.Label(
         admin_frame, text='TELÉFONO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    telefono_label.place(x=510, y=420, width=200, height=40)
-
+    telefono_label.place(x=x_col_izq, y=600, width=ancho, height=alto)
+    
     ciudad_label = tk.Label(
         admin_frame, text='CIUDAD:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ciudad_label.place(x=510, y=510, width=200, height=40)
-
+    ciudad_label.place(x=x_col_izq, y=650, width=ancho, height=alto)
+    
+    #-------- COLUMNA DERECHA
     ips_label = tk.Label(
         admin_frame, text='IPS:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ips_label.place(x=510, y=600, width=200, height=40)
-
+    ips_label.place(x=x_col_der, y=150, width=ancho, height=alto)
+    
+    ordenes_label = tk.Label(
+        admin_frame, text='ORDENES:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    ordenes_label.place(x=x_col_der, y=200, width=ancho, height=alto)
+    
+    parentesco_label = tk.Label(
+        admin_frame, text='PARENTESCO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    parentesco_label.place(x=x_col_der, y=250, width=ancho, height=alto)
+    
+    salario_label = tk.Label(
+        admin_frame, text='SALARIO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    salario_label.place(x=x_col_der, y=300, width=ancho, height=alto)
+    
+    estado_afil_label = tk.Label(
+        admin_frame, text='ESTADO AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    estado_afil_label.place(x=x_col_der, y=350, width=ancho, height=alto)
+    
+    fecha_afil_label = tk.Label(
+        admin_frame, text='FECHA AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    fecha_afil_label.place(x=x_col_der, y=400, width=ancho, height=alto)
+    
+    rango_salarial_label = tk.Label(
+        admin_frame, text='RAN SALARIAL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    rango_salarial_label.place(x=x_col_der, y=450, width=ancho, height=alto)
+   
+    estado_label = tk.Label(
+        admin_frame, text='ESTADO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    estado_label.place(x=x_col_der, y=500, width=ancho, height=alto)
+    
+    nombre_empresa_label = tk.Label(
+        admin_frame, text='NOM EMPRESA:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    nombre_empresa_label.place(x=x_col_der, y=550, width=ancho, height=alto)
+    
+    rut_label = tk.Label(
+        admin_frame, text='RUT:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    rut_label.place(x=x_col_der, y=600, width=ancho, height=alto)
+    
+    contrato_label = tk.Label(
+        admin_frame, text='CONTRATO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    contrato_label.place(x=x_col_der, y=650, width=ancho, height=alto)
+    
 etiquetas()
 
 def go_second_to_admin():
@@ -280,6 +407,7 @@ btn_second_to_gestionar_afil.config(command=go_second_to_admin)
 btn_admin_to_second.config(command=go_admin_to_second)
 
 def listar():
+    print(f'-----> opcion: {mi_genero.get()}')
     deshabilitar_entries()
     # recupero el array haciendo el llamado
     llave = str(mi_id.get())
@@ -300,42 +428,109 @@ def listar():
         ips = {afiliado[0][11]}
         """
         
-        messagebox.showinfo('Consulta', resultado)
+        messagebox.showinfo('Consulta de Afiliado', resultado)
     except Exception as ex:
         messagebox.showerror('Fallo al listar', f'{ex}.')
 
-def habilitar_campos():
+def habilitar_campos_beneficiario():
+    deshabilitar_entries()
+
+    nombre_entry.config(state='normal', bg='white')
+    apellido_entry.config(state='normal', bg='white')
+    genero_entry.config(state='normal', bg='white')
+    direccion_entry.config(state='normal', bg='white')
+    email_entry.config(state='normal', bg='white')
+    fecha_nac_dateentry.config(state='normal')
+    estado_civil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='normal', bg='white')
+    telefono_entry.config(state='normal', bg='white')
+    ciudad_entry.config(state='normal', bg='white')
+    ips_entry.config(state='normal', bg='white')
+    ordenes_entry.config(state='normal', bg='white')
+    parentesco_entry.config(state='normal', bg='white')
+    #salario_entry.config(state='normal')
+    #estado_afil_entry.config(state='normal')
+    #fecha_afil_dateentry.config(state='normal')
+    #rango_salarial_entry.config(state='normal')
+    #estado_entry.config(state='normal')
+    #nombre_empresa_entry.config(state='normal')
+    #rut_entry.config(state='normal')
+    #contrato_entry.config(state='normal')
+    
+    btn_guardar.config(state='normal')
+
+def habilitar_campos_dependiente():
     deshabilitar_entries()
     
-    nombre_entry.config(state='normal')
-    apellido_entry.config(state='normal')
-    genero_entry.config(state='normal')
-    direccion_entry.config(state='normal')
-    email_entry.config(state='normal')
-    f_nac_entry.config(state='normal')
-    estado_civil_entry.config(state='normal')
-    tipo_afil_entry.config(state='normal')
-    telefono_entry.config(state='normal')
-    ciudad_entry.config(state='normal')
-    ips_entry.config(state='normal')
+    nombre_entry.config(state='normal', bg='white')
+    apellido_entry.config(state='normal', bg='white')
+    genero_entry.config(state='normal', bg='white')
+    direccion_entry.config(state='normal', bg='white')
+    email_entry.config(state='normal', bg='white')
+    fecha_nac_dateentry.config(state='normal')
+    estado_civil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='normal', bg='white')
+    telefono_entry.config(state='normal', bg='white')
+    ciudad_entry.config(state='normal', bg='white')
+    ips_entry.config(state='normal', bg='white')
+    ordenes_entry.config(state='normal', bg='white')
+    #parentesco_entry.config(state='normal')
+    salario_entry.config(state='normal', bg='white')
+    estado_afil_entry.config(state='normal', bg='white')
+    fecha_afil_dateentry.config(state='normal')
+    rango_salarial_entry.config(state='normal', bg='white')
+    estado_entry.config(state='normal', bg='white')
+    #nombre_empresa_entry.config(state='normal')
+    #rut_entry.config(state='normal')
+    #contrato_entry.config(state='normal')
+    
+    btn_guardar.config(state='normal')
+
+def habilitar_campos_independiente():
+    deshabilitar_entries()
+    
+    nombre_entry.config(state='normal', bg='white')
+    apellido_entry.config(state='normal', bg='white')
+    genero_entry.config(state='normal', bg='white')
+    direccion_entry.config(state='normal', bg='white')
+    email_entry.config(state='normal', bg='white')
+    fecha_nac_dateentry.config(state='normal')
+    estado_civil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='normal', bg='white')
+    telefono_entry.config(state='normal', bg='white')
+    ciudad_entry.config(state='normal', bg='white')
+    ips_entry.config(state='normal', bg='white')
+    ordenes_entry.config(state='normal', bg='white')
+    parentesco_entry.config(state='normal', bg='white')
+    #parentesco_entry.config(state='normal')
+    salario_entry.config(state='normal', bg='white')
+    estado_afil_entry.config(state='normal', bg='white')
+    fecha_afil_dateentry.config(state='normal')
+    rango_salarial_entry.config(state='normal', bg='white')
+    #estado_entry.config(state='normal')
+    nombre_empresa_entry.config(state='normal', bg='white')
+    rut_entry.config(state='normal', bg='white')
+    contrato_entry.config(state='normal', bg='white')
     
     btn_guardar.config(state='normal')
 
 def guardar_datos():
     
-    obj_afiliado = Afiliados(
-        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-        mi_email.get(), mi_fecha.get(), mi_estado_civil.get(), mi_tipo_afil.get(),
-        mi_telefono.get(), mi_ciudad.get(), mi_ips.get()
+    obj_beneficiario = Beneficiarios(
+        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(), mi_email.get(),
+        fecha_nac_dateentry.get_date(), mi_estado_civil.get(), mi_tipo_afil.get(),
+        mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), mi_parentesco.get()
     )
     
     if mi_id.get() == '':
-        agregar(obj_afiliado)
+        agregar_beneficiario(obj_beneficiario)
     else:
-        editar(obj_afiliado, mi_id)
+        editar(obj_beneficiario, mi_id)
 
 btn_consulta.config(command=listar)
-btn_nuevo.config(command=habilitar_campos)
+btn_nuevo_beneficiario.config(command=habilitar_campos_beneficiario)
+btn_nuevo_dependiente.config(command=habilitar_campos_dependiente)
+btn_nuevo_independiente.config(command=habilitar_campos_independiente)
 btn_guardar.config(command=guardar_datos)
 # --------------------------- MAIN FRAME ----------------------------
 main_frame.pack(fill=tk.BOTH, expand=True)
