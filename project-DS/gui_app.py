@@ -202,9 +202,9 @@ parentesco_entry = tk.OptionMenu(
     admin_frame, mi_parentesco, *['Cónyuge', 'Padre', 'Madre', 'Hijo', 'Hermanos', 'Amigos'])
 parentesco_entry.place(x=x_col_der, y=150, width=ancho, height=alto)
 
-mi_beneficiario = tk.StringVar()
-beneficiario_entry = tk.Entry(admin_frame, textvariable=mi_beneficiario, font=('Bold', 20))
-beneficiario_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
+mi_cotizante = tk.StringVar()
+cotizante_entry = tk.Entry(admin_frame, textvariable=mi_cotizante, font=('Bold', 20))
+cotizante_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
 
 mi_salario = tk.StringVar()
 salario_entry = tk.Entry(admin_frame, textvariable=mi_salario, font=('Bold', 20))
@@ -254,7 +254,7 @@ def deshabilitar_entries():
     mi_ips.set('')
     mi_ordenes.set('')
     mi_parentesco.set('')
-    mi_beneficiario.set('')
+    mi_cotizante.set('')
     mi_salario.set('')
     mi_estado_afiliacion.set('')
     mi_fecha_afiliacion.set('')
@@ -280,7 +280,7 @@ def deshabilitar_entries():
     ips_entry.config(state='disabled', bg=color)
     ordenes_entry.config(state='disabled', bg=color)
     parentesco_entry.config(state='disabled', bg=color)
-    beneficiario_entry.config(state='disabled', bg=color)
+    cotizante_entry.config(state='disabled', bg=color)
     salario_entry.config(state='disabled', bg=color)
     estado_afil_entry.config(state='disabled', bg=color)
     fecha_afil_dateentry.config(state='disabled')
@@ -327,9 +327,9 @@ def etiquetas():
         admin_frame, text='EMAIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
     email_label.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
-    f_nac_label = tk.Label(
+    fecha_nac_label = tk.Label(
         admin_frame, text='FECHA NAC:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    f_nac_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
+    fecha_nac_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
 
     estado_civil_label = tk.Label(
         admin_frame, text='ESTADO CIVIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
@@ -459,7 +459,7 @@ def habilitar_campos_beneficiario():
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
     parentesco_entry.config(state='normal', bg='white')
-    beneficiario_entry.config(state='normal', bg='white')
+    cotizante_entry.config(state='normal', bg='white')
     #salario_entry.config(state='normal')
     #estado_afil_entry.config(state='normal')
     #fecha_afil_dateentry.config(state='normal')
@@ -487,7 +487,7 @@ def habilitar_campos_dependiente():
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
     #parentesco_entry.config(state='normal')
-    #beneficiario_entry.config(state='normal', bg='white')
+    #cotizante_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -515,7 +515,7 @@ def habilitar_campos_independiente():
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
     #parentesco_entry.config(state='normal')
-    #beneficiario_entry.config(state='normal', bg='white')
+    #cotizante_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -533,7 +533,7 @@ def guardar_datos():
         mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
         mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
         mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
-        mi_ordenes.get(), mi_parentesco.get(), mi_beneficiario.get()
+        mi_ordenes.get(), mi_parentesco.get(), mi_cotizante.get()
     )
     
     obj_dependiente = Dependientes(

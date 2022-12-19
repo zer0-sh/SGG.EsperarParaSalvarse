@@ -150,7 +150,7 @@ def agregar_beneficiario(objeto):
         VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\', \'{objeto.genero}\',
         \'{objeto.direccion}\', \'{objeto.email}\', \'{objeto.fecha_nacimiento}\',
         \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, \'{objeto.ordenes}\', \'{objeto.parentesco}\', \'\',
+        {objeto.ips}, \'{objeto.ordenes}\', \'{objeto.parentesco}\', \'{objeto.cotizante}\',
         );"""
     
     try:
