@@ -168,8 +168,8 @@ mi_email = tk.StringVar()
 email_entry = tk.Entry(admin_frame, textvariable=mi_email, font=('Bold', 20))
 email_entry.place(x=x_col_izq, y=350, width=ancho, height=alto)
 
-mi_fecha = tk.StringVar()
-fecha_nac_dateentry = DateEntry(admin_frame, textvariable=mi_fecha, font=('Bold', 20))
+mi_fecha_nacimiento = tk.StringVar()
+fecha_nac_dateentry = DateEntry(admin_frame, textvariable=mi_fecha_nacimiento, font=('Bold', 20))
 fecha_nac_dateentry.place(x=x_col_izq, y=400, width=ancho, height=alto)
 
 mi_estado_civil = tk.StringVar()
@@ -246,7 +246,7 @@ def deshabilitar_entries():
     mi_genero.set('')
     mi_direccion.set('')
     mi_email.set('')
-    mi_fecha.set('')
+    mi_fecha_nacimiento.set('')
     mi_estado_civil.set('')
     mi_tipo_afil.set('')
     mi_telefono.set('')
@@ -254,6 +254,7 @@ def deshabilitar_entries():
     mi_ips.set('')
     mi_ordenes.set('')
     mi_parentesco.set('')
+    mi_beneficiario.set('')
     mi_salario.set('')
     mi_estado_afiliacion.set('')
     mi_fecha_afiliacion.set('')
@@ -279,6 +280,7 @@ def deshabilitar_entries():
     ips_entry.config(state='disabled', bg=color)
     ordenes_entry.config(state='disabled', bg=color)
     parentesco_entry.config(state='disabled', bg=color)
+    beneficiario_entry.config(state='disabled', bg=color)
     salario_entry.config(state='disabled', bg=color)
     estado_afil_entry.config(state='disabled', bg=color)
     fecha_afil_dateentry.config(state='disabled')
@@ -416,7 +418,7 @@ btn_second_to_gestionar_afil.config(command=go_second_to_admin)
 btn_admin_to_second.config(command=go_admin_to_second)
 
 def listar():
-    print(f'-----> opcion: {mi_genero.get()}')
+    print(f'-----> opcion genero: {mi_fecha_nacimiento.get()}, type: {type(mi_fecha_nacimiento.get())}')
     deshabilitar_entries()
     # recupero el array haciendo el llamado
     llave = str(mi_id.get())
@@ -457,6 +459,7 @@ def habilitar_campos_beneficiario():
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
     parentesco_entry.config(state='normal', bg='white')
+    beneficiario_entry.config(state='normal', bg='white')
     #salario_entry.config(state='normal')
     #estado_afil_entry.config(state='normal')
     #fecha_afil_dateentry.config(state='normal')
@@ -484,6 +487,7 @@ def habilitar_campos_dependiente():
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
     #parentesco_entry.config(state='normal')
+    #beneficiario_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -510,8 +514,8 @@ def habilitar_campos_independiente():
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
-    parentesco_entry.config(state='normal', bg='white')
     #parentesco_entry.config(state='normal')
+    #beneficiario_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -526,9 +530,27 @@ def habilitar_campos_independiente():
 def guardar_datos():
     
     obj_beneficiario = Beneficiarios(
-        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(), mi_email.get(),
-        fecha_nac_dateentry.get_date(), mi_estado_civil.get(), mi_tipo_afil.get(),
-        mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), mi_parentesco.get()
+        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
+        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
+        mi_ordenes.get(), mi_parentesco.get(), mi_beneficiario.get()
+    )
+    
+    obj_dependiente = Dependientes(
+        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
+        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
+        mi_ordenes.get(), mi_salario.get, mi_estado_afiliacion.get(),
+        fecha_afil_dateentry.get_date(), mi_rango_salarial.get(), mi_estado.get()
+    )
+    
+    obj_independiente = Independientes(
+        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
+        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
+        mi_ordenes.get(), mi_salario.get, mi_estado_afiliacion.get(),
+        fecha_afil_dateentry.get_date(), mi_rango_salarial.get(), 
+        mi_nombre_empresa.get(), mi_rut.get(), mi_contrato.get()
     )
     
     if mi_id.get() == '':
