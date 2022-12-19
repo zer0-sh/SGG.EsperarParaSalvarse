@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
-from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, eliminar
+from model.entidades import Beneficiarios, Dependientes, Independientes, Empresa, consultar, eliminar
 from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
+from model.entidades import agregar_empresa, eliminar_key_int, consultar_empresa
 from model.entidades import editar_beneficiario, editar_dependiente, editar_independiente
 
 root = tk.Tk()
@@ -78,7 +79,7 @@ btn_second_to_generar_reportes.config(
     font=('Bold', 20), activebackground='#35BD6F')
 
 def go_home_to_second():
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     try:
         home_frame.pack_forget()
         second_frame.pack(fill=tk.BOTH, expand=True)
@@ -86,7 +87,7 @@ def go_home_to_second():
         print('ERROR al cambiar de frame')
 
 def go_second_to_home():
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     try:
         second_frame.pack_forget()
         home_frame.pack(fill=tk.BOTH, expand=True)
@@ -108,9 +109,9 @@ btn_admin_to_second.config(
 alto_btn = 90    # original: 130
 ancho_btn = 320  # original: 280
 x_btn = 940      # original: 980
-btn_consulta = tk.Button(afiliados_frame)
-btn_consulta.place(x=x_btn, y=100, width=ancho_btn, height=alto_btn)
-btn_consulta.config(
+btn_consultar_afiliados = tk.Button(afiliados_frame)
+btn_consultar_afiliados.place(x=x_btn, y=100, width=ancho_btn, height=alto_btn)
+btn_consultar_afiliados.config(
     text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 28), activebackground='#35BD6F')
 
@@ -249,64 +250,8 @@ contrato_entry = tk.OptionMenu(
     afiliados_frame, mi_contrato, *['60001', '60002', '60003', '60004', '60005', '60006'])
 contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
 
-def deshabilitar_entries():
-    global valindante
-    valindante = 0
-    
-    mi_id.set('')
-    mi_nombre.set('')
-    mi_apellido.set('')
-    mi_genero.set('')
-    mi_direccion.set('')
-    mi_email.set('')
-    mi_fecha_nacimiento.set('')
-    mi_estado_civil.set('')
-    mi_tipo_afil.set('')
-    mi_telefono.set('')
-    mi_ciudad.set('')
-    mi_ips.set('')
-    mi_ordenes.set('')
-    mi_parentesco.set('')
-    mi_cotizante.set('')
-    mi_salario.set('')
-    mi_estado_afiliacion.set('')
-    mi_fecha_afiliacion.set('')
-    mi_rango_salarial.set('')
-    mi_estado.set('')
-    mi_nombre_empresa.set('')
-    mi_rut.set('')
-    mi_contrato.set('')
-    
-    color = '#139a80'
-    
-    id_entry.config(state='normal')
-    nombre_entry.config(state='disabled', background=color, )
-    apellido_entry.config(state='disabled', bg=color)
-    genero_entry.config(state='disabled', bg=color)
-    direccion_entry.config(state='disabled', bg=color)
-    email_entry.config(state='disabled', bg=color)
-    fecha_nac_dateentry.config(state='disabled')
-    estado_civil_entry.config(state='disabled', bg=color)
-    tipo_afil_entry.config(state='disabled', bg=color)
-    telefono_entry.config(state='disabled', bg=color)
-    ciudad_entry.config(state='disabled', bg=color)
-    ips_entry.config(state='disabled', bg=color)
-    ordenes_entry.config(state='disabled', bg=color)
-    parentesco_entry.config(state='disabled', bg=color)
-    cotizante_entry.config(state='disabled', bg=color)
-    salario_entry.config(state='disabled', bg=color)
-    estado_afil_entry.config(state='disabled', bg=color)
-    fecha_afil_dateentry.config(state='disabled')
-    rango_salarial_entry.config(state='disabled', bg=color)
-    estado_entry.config(state='disabled', bg=color)
-    nombre_empresa_entry.config(state='disabled', bg=color)
-    rut_entry.config(state='disabled', bg=color)
-    contrato_entry.config(state='disabled', bg=color)
-    
-    btn_guardar.config(state='disabled')
-
 # Labels
-def etiquetas():
+def etiquetas_afiliados():
     ancho = 220  # original: 200
     alto = 40    # original: 40
     x_col_izq = 0   # original: 20
@@ -408,11 +353,68 @@ def etiquetas():
     contrato_label = tk.Label(
         afiliados_frame, text='CONTRATO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
     contrato_label.place(x=x_col_der, y=600, width=ancho, height=alto)
+
+etiquetas_afiliados()
+
+# FUNTIONS
+def deshabilitar_entries_afiliados():
+    global valindante
+    valindante = 0
     
-etiquetas()
+    mi_id.set('')
+    mi_nombre.set('')
+    mi_apellido.set('')
+    mi_genero.set('')
+    mi_direccion.set('')
+    mi_email.set('')
+    mi_fecha_nacimiento.set('')
+    mi_estado_civil.set('')
+    mi_tipo_afil.set('')
+    mi_telefono.set('')
+    mi_ciudad.set('')
+    mi_ips.set('')
+    mi_ordenes.set('')
+    mi_parentesco.set('')
+    mi_cotizante.set('')
+    mi_salario.set('')
+    mi_estado_afiliacion.set('')
+    mi_fecha_afiliacion.set('')
+    mi_rango_salarial.set('')
+    mi_estado.set('')
+    mi_nombre_empresa.set('')
+    mi_rut.set('')
+    mi_contrato.set('')
+    
+    color = '#139a80'
+    
+    id_entry.config(state='normal')
+    nombre_entry.config(state='disabled', background=color, )
+    apellido_entry.config(state='disabled', bg=color)
+    genero_entry.config(state='disabled', bg=color)
+    direccion_entry.config(state='disabled', bg=color)
+    email_entry.config(state='disabled', bg=color)
+    fecha_nac_dateentry.config(state='disabled')
+    estado_civil_entry.config(state='disabled', bg=color)
+    tipo_afil_entry.config(state='disabled', bg=color)
+    telefono_entry.config(state='disabled', bg=color)
+    ciudad_entry.config(state='disabled', bg=color)
+    ips_entry.config(state='disabled', bg=color)
+    ordenes_entry.config(state='disabled', bg=color)
+    parentesco_entry.config(state='disabled', bg=color)
+    cotizante_entry.config(state='disabled', bg=color)
+    salario_entry.config(state='disabled', bg=color)
+    estado_afil_entry.config(state='disabled', bg=color)
+    fecha_afil_dateentry.config(state='disabled')
+    rango_salarial_entry.config(state='disabled', bg=color)
+    estado_entry.config(state='disabled', bg=color)
+    nombre_empresa_entry.config(state='disabled', bg=color)
+    rut_entry.config(state='disabled', bg=color)
+    contrato_entry.config(state='disabled', bg=color)
+    
+    btn_guardar.config(state='disabled')
 
 def go_second_to_admin():
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     try:
         second_frame.pack_forget()
         afiliados_frame.pack(fill=tk.BOTH, expand=True)
@@ -420,7 +422,7 @@ def go_second_to_admin():
         print('ERROR al cambiar de frame')
 
 def go_admin_to_second():
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     try:
         afiliados_frame.pack_forget()
         second_frame.pack(fill=tk.BOTH, expand=True)
@@ -432,7 +434,7 @@ btn_admin_to_second.config(command=go_admin_to_second)
 
 def habilitar_campos_beneficiario():
     global valindante
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     valindante = 1
     mi_tipo_afil.set('Beneficiario')
 
@@ -455,7 +457,7 @@ def habilitar_campos_beneficiario():
 
 def habilitar_campos_dependiente():
     global valindante
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     valindante = 2
     mi_tipo_afil.set('Cotizante')
     
@@ -481,7 +483,7 @@ def habilitar_campos_dependiente():
 
 def habilitar_campos_independiente():
     global valindante
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     valindante = 3
     mi_tipo_afil.set('Cotizante')
     
@@ -510,7 +512,7 @@ def habilitar_campos_independiente():
 def listar():
     
     llave = str(mi_id.get())
-    deshabilitar_entries()
+    deshabilitar_entries_afiliados()
     
     try:
         
@@ -532,7 +534,7 @@ def listar():
             mi_ordenes.set(beneficiario[0][12])
             mi_parentesco.set(beneficiario[0][13])
             mi_cotizante.set('')
-            #habilitar_campos_beneficiario()
+            
         except Exception as e:
             pass
         
@@ -557,7 +559,6 @@ def listar():
             mi_fecha_afiliacion.set(dependiente[0][15])
             mi_estado.set(dependiente[0][16])
             mi_rango_salarial.set(dependiente[0][17])
-            #habilitar_campos_dependiente()
         except Exception as e:
             pass
         
@@ -584,7 +585,6 @@ def listar():
             mi_rut.set(independiente[0][17])
             mi_contrato.set(independiente[0][18])
             mi_rango_salarial.set(independiente[0][19])
-            #habilitar_campos_independiente()
         except Exception as e:
             pass
         
@@ -601,7 +601,7 @@ def guardar_datos():
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
             mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(),
             mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), 
-            mi_parentesco.get(), mi_cotizante.get()
+            mi_parentesco.get(), mi_cotizante.get(), 
         )
         if mi_id.get() == '':
             agregar_beneficiario(obj_beneficiario)
@@ -646,7 +646,7 @@ def eliminar_tupla():
     except Exception as ex:
         messagebox.showerror('Fallo al eliminar', f'{ex}.')
 
-btn_consulta.config(command=listar)
+btn_consultar_afiliados.config(command=listar)
 btn_nuevo_beneficiario.config(command=habilitar_campos_beneficiario)
 btn_nuevo_dependiente.config(command=habilitar_campos_dependiente)
 btn_nuevo_independiente.config(command=habilitar_campos_independiente)
@@ -662,10 +662,150 @@ btn_empresas_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
 
-titulo = tk.Label(empresas_frame, text='EMPRESAS')
-titulo.place(x=500, y=150)
+alto_btn = 80    # original: 90
+ancho_btn = 295  # original: 320
+y_btn = 570      # original: 650
+btn_consultar_empresas = tk.Button(empresas_frame)
+btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_consultar_empresas.config(
+    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_agregar_empresas = tk.Button(empresas_frame)
+btn_agregar_empresas.place(x=335, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_agregar_empresas.config(
+    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_guardar_empresas = tk.Button(empresas_frame)
+btn_guardar_empresas.place(x=650, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_guardar_empresas.config(
+    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_eliminar_empresas = tk.Button(empresas_frame)
+btn_eliminar_empresas.place(x=965, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_eliminar_empresas.config(
+    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+#ENTRIES
+ancho = 310
+alto = 60
+x_col_izq = 300
+x_col_der = 930
+
+# izquierda ------------
+mi_nit_empresa = tk.StringVar()
+nit_entry_emp = tk.Entry(empresas_frame, textvariable=mi_nit_empresa, font=('Bold', 20))
+nit_entry_emp.place(x=x_col_izq, y=200, width=ancho, height=alto)
+
+mi_razon_social = tk.StringVar()
+razon_social_entry = tk.Entry(empresas_frame, textvariable=mi_razon_social, font=('Bold', 20))
+razon_social_entry.place(x=x_col_izq, y=280, width=ancho, height=alto)
+
+ciudad_entry_emp = tk.Entry(empresas_frame, textvariable=mi_ciudad, font=('Bold', 20))
+ciudad_entry_emp.place(x=x_col_izq, y=360, width=ancho, height=alto)
+
+direccion_entry_emp = tk.Entry(empresas_frame, textvariable=mi_direccion, font=('Bold', 20))
+direccion_entry_emp.place(x=x_col_izq, y=440, width=ancho, height=alto)
+
+# derecha --------------
+telefono_entry_emp = tk.Entry(empresas_frame, textvariable=mi_telefono, font=('Bold', 20))
+telefono_entry_emp.place(x=x_col_der, y=200, width=ancho, height=alto)
+
+mi_nombre_contacto = tk.StringVar()
+nombre_contacto_entry = tk.Entry(empresas_frame, textvariable=mi_nombre_contacto, font=('Bold', 20))
+nombre_contacto_entry.place(x=x_col_der, y=280, width=ancho, height=alto)
+    
+contrato_entry_emp = tk.OptionMenu(
+    empresas_frame, mi_contrato, *['60001', '60002', '60003', '60004', '60005', '60006'])
+contrato_entry_emp.place(x=x_col_der, y=360, width=ancho, height=alto)
+
+# LABELS
+def etiquetas_empresas():
+    ancho = 300  # original: 200
+    alto = 60    # original: 40
+    x_col_izq = 0   # original: 20
+    x_col_der = 630   # original: 510
+    title_label = tk.Label(
+        empresas_frame, text='EMPRESAS', font=('Bold', 40), bg='#139a80', fg='white',
+        anchor='center')
+    title_label.place(x=520, y=70, width=300, height=60) # tittle
+
+    # izquierda ------------
+    nit_label = tk.Label(
+        empresas_frame, text='NIT:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    nit_label.place(x=x_col_izq, y=200, width=ancho, height=alto)
+
+    razon_social_label = tk.Label(
+        empresas_frame, text='RAZON SOCIAL:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    razon_social_label.place(x=x_col_izq, y=280, width=ancho, height=alto)
+    
+    ciudad_label = tk.Label(
+        empresas_frame, text='CIUDAD:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    ciudad_label.place(x=x_col_izq, y=360, width=ancho, height=alto)
+
+    direccion_label = tk.Label(
+        empresas_frame, text='DIRECCIÓN:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    direccion_label.place(x=x_col_izq, y=440, width=ancho, height=alto)
+    
+    # derecha --------------
+    telefono_label = tk.Label(
+        empresas_frame, text='TELÉFONO:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    telefono_label.place(x=x_col_der, y=200, width=ancho, height=alto)
+
+    nombre_contacto_label = tk.Label(
+        empresas_frame, text='NOM CONTACTO:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    nombre_contacto_label.place(x=x_col_der, y=280, width=ancho, height=alto)
+    
+    contrato_label = tk.Label(
+        empresas_frame, text='CONTRATO:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
+    contrato_label.place(x=x_col_der, y=360, width=ancho, height=alto)
+    
+etiquetas_empresas()
+
+# FUNTIONS
+def deshabilitar_entries_empresas():
+    
+    btn_guardar_empresas.config(state='disabled')
+    
+    mi_nit_empresa.set('')
+    mi_razon_social.set('')
+    mi_ciudad.set('')
+    mi_direccion.set('')
+    mi_telefono.set('')
+    mi_nombre_contacto.set('')
+    mi_contrato.set('')
+    
+    nit_entry_emp.config(state='normal')
+    razon_social_entry.config(state='disabled')
+    ciudad_entry_emp.config(state='disabled')
+    direccion_entry_emp.config(state='disabled')
+    telefono_entry_emp.config(state='disabled')
+    nombre_contacto_entry.config(state='disabled')
+    contrato_entry_emp.config(state='disabled')
+
+def listar_empresa():
+    try:
+        llave = str(mi_nit_empresa.get())
+        empresa = consultar_empresa(llave, 'empresa')
+        
+        mi_nit_empresa.set(empresa[0][0])
+        mi_razon_social.set(empresa[0][1])
+        mi_ciudad.set(empresa[0][2])
+        mi_direccion.set(empresa[0][3])
+        mi_telefono.set(empresa[0][4])
+        mi_nombre_contacto.set(empresa[0][5])
+        mi_contrato.set(empresa[0][6])
+        
+    except Exception as ex:
+        messagebox.showerror('Fallo al listar', f'{ex}.')
 
 def go_second_to_empresas():
+    
+    deshabilitar_entries_empresas()
+    
     try:
         second_frame.pack_forget()
         empresas_frame.pack(fill=tk.BOTH, expand=True)
@@ -673,6 +813,9 @@ def go_second_to_empresas():
         print('ERROR al cambiar de frame')
 
 def go_empresas_to_second():
+    
+    deshabilitar_entries_empresas()
+    
     try:
         empresas_frame.pack_forget()
         second_frame.pack(fill=tk.BOTH, expand=True)
@@ -682,6 +825,40 @@ def go_empresas_to_second():
 btn_second_to_gestionar_empresas.config(command=go_second_to_empresas)
 btn_empresas_to_second.config(command=go_empresas_to_second)
 
+def habilitar_campos_empresa():
+    
+    btn_guardar_empresas.config(state='normal')
+    
+    razon_social_entry.config(state='normal')
+    ciudad_entry_emp.config(state='normal')
+    direccion_entry_emp.config(state='normal')
+    telefono_entry_emp.config(state='normal')
+    nombre_contacto_entry.config(state='normal')
+    contrato_entry_emp.config(state='normal')
+
+def empresa_agregar():
+    obj_empresa = Empresa(
+        mi_razon_social.get(), mi_ciudad.get(), mi_direccion.get(), mi_telefono.get(),
+        mi_nombre_contacto.get(), mi_contrato.get()
+    )
+    
+    if mi_nit_empresa.get() == '':
+        agregar_empresa(obj_empresa)
+    else:
+        print(f'no pasó al agregar_empresas()')
+
+def eliminar_empresa():
+    llave = str(mi_nit_empresa.get())
+    try:
+        listar()
+        eliminar_key_int('empresa', llave)
+    except Exception as ex:
+        messagebox.showerror('FALLO AL ELIMINAR', f'{ex}.')
+
+btn_consultar_empresas.config(command=listar_empresa)
+btn_agregar_empresas.config(command=habilitar_campos_empresa)
+btn_guardar_empresas.config(command=empresa_agregar)
+btn_eliminar_empresas.config(command=eliminar_empresa)
 # ------------------------ CONTRATOS FRAME --------------------------
 contratos_frame = tk.Frame(main_frame, bg='#139a80')
 
@@ -692,8 +869,12 @@ btn_contratos_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
 
-titulo = tk.Label(contratos_frame, text='CONTRATOS')
-titulo.place(x=500, y=150)
+# LABELS
+title_label = tk.Label(
+    contratos_frame, text='CONTRATOS', font=('Bold', 35), bg='#139a80', fg='white',
+    anchor='center')
+title_label.place(x=520, y=70, width=300, height=60)
+
 
 def go_second_to_contratos():
     try:
@@ -721,8 +902,11 @@ btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
 
-titulo = tk.Label(reportes_frame, text='REPORTES')
-titulo.place(x=500, y=150)
+# LABELS
+title_label = tk.Label(
+    reportes_frame, text='REPORTES', font=('Bold', 35), bg='#139a80', fg='white',
+    anchor='center')
+title_label.place(x=520, y=70, width=300, height=60)
 
 def go_second_to_reportes():
     try:

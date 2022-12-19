@@ -63,13 +63,15 @@ class Independientes(Cotizantes):
         self.contrato = contrato
 
 class Empresa:
-    def __init__(self, nit, razonsocial,ciudad, direccion, telefono, nombrecontacto, contrato):
-        self.nit = nit
-        self.razonsocial = razonsocial
+    def __init__(
+        self, razonsocial,ciudad, direccion, telefono, nombrecontacto, contrato):
+        self.nit = None
+        
+        self.razon_social = razonsocial
         self.ciudad = ciudad
         self.direccion = direccion
         self.telefono = telefono
-        self.nombrecontacto = nombrecontacto
+        self.nombre_contacto = nombrecontacto
         self.contrato = contrato
 
 class Ips:
@@ -127,11 +129,42 @@ def consultar(id, tabla):
 
     return listar_afiliado
 
-def conteo():
+def consultar_empresa(nit, tabla):
+    conexion = conectarBD()
+    
+    lista_empresa = []
+    query = f"""SELECT * FROM {tabla} WHERE nit={nit}"""
+    
+    try:
+        conexion.cursor.execute(query)
+        lista_empresa = conexion.cursor.fetchall()
+        conexion.cerrar()
+    except Exception as ex:
+        messagebox.showerror('ERROR EN LA CONSULTA EMPRESA', f'{ex}.')
+
+    return lista_empresa
+
+# FUNTIONS
+def max_tuplas(tabla, columna):
     conexion = conectarBD()
     
     tamaño_tabla = []
-    quary = """SELECT max(id) FROM afiliado """
+    quary = f"""SELECT max({columna}) FROM {tabla} """
+    
+    try:
+        conexion.cursor.execute(quary)
+        tamaño_tabla = conexion.cursor.fetchall()
+        conexion.cerrar()
+    except Exception as ex:
+        messagebox.showerror('ERROR EN MAX', f'{ex}.')
+    
+    return tamaño_tabla[0][0]
+
+def conteo(tabla):
+    conexion = conectarBD()
+    
+    tamaño_tabla = []
+    quary = f"""SELECT count(*) FROM {tabla} """
     
     try:
         conexion.cursor.execute(quary)
@@ -146,7 +179,7 @@ def conteo():
 def agregar_beneficiario(objeto):
     conexion = conectarBD()
     #objeto = Beneficiarios()
-    tam = int(conteo()) + 1
+    tam = int(max_tuplas('afiliado', 'id')) + 1
     
     quary = f"""INSERT INTO beneficiario
         VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
@@ -159,35 +192,39 @@ def agregar_beneficiario(objeto):
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
-        print('ejecutó agregar_beneficiario()')
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR AFILIADO',
+            f'El beneficiario de identifición: {tam}\nFue añadido a Base de dato con exito!!')
     except Exception as ex:
-        messagebox.showerror('ERROR EN AGREGAR BENEFICIARIO', f'{ex}.')  
+        messagebox.showerror('ERROR EN AGREGAR BENEFICIARIO', f'{ex}.') 
 
 def agregar_dependiente(objeto):
     conexion = conectarBD()
     #objeto = Dependientes()
-    tam = int(conteo()) + 1
+    tam = int(max_tuplas('afiliado', 'id')) + 1
     
     quary = f"""INSERT INTO dependiente
         VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
         \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
         \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
         \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, {objeto.ordenes}, {objeto.salario}, \'{objeto.estado_afiliacion}\', 
+        {objeto.ips}, {objeto.ordenes}, {objeto.salario}, \'{objeto.estado_afiliacion}\',
         \'{objeto.fecha_afiliacion}\', \'{objeto.estado}\', \'{objeto.rango_salarial}\'
         );"""
     
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
-        print('ejecutó agregar_dependiente()')
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR AFILIADO',
+            f'El dependiente de identifición: {tam}\nFue añadido a Base de dato con exito!!')
     except Exception as ex:
-        messagebox.showerror('ERROR EN AGREGAR DEPENDIENTE', f'{ex}.')  
+        messagebox.showerror('ERROR EN AGREGAR DEPENDIENTE', f'{ex}.')
 
 def agregar_independiente(objeto):
     conexion = conectarBD()
     #objeto = Independientes()
-    tam = int(conteo()) + 1
+    tam = int(max_tuplas('afiliado', 'id')) + 1
     
     quary = f"""INSERT INTO independiente
         VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
@@ -203,9 +240,31 @@ def agregar_independiente(objeto):
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
-        print('ejecutó agregar_independiente()')
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR AFILIADO',
+            f'El independiente de identifición: {tam}\nFue añadido a Base de dato con exito!!')
     except Exception as ex:
-        messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.')  
+        messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.') 
+
+def agregar_empresa(objeto):
+    conexion = conectarBD()
+    #objeto = Empresa()
+    tam = int(max_tuplas('empresa', 'nit')) + 1
+    
+    quary = f"""INSERT INTO empresa
+        VALUES({tam}, \'{objeto.razon_social}\', \'{objeto.ciudad}\',
+        \'{objeto.direccion}\', {objeto.telefono},
+        \'{objeto.nombre_contacto}\', {objeto.contrato}
+        );"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR EMPRESA',
+            f'La empresa de nit: {tam}\nFue añadido a Base de\ndatos con exito!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.') 
 
 # EDIT FUNTIONS
 def editar_beneficiario(objeto, id):
@@ -279,4 +338,17 @@ def eliminar(id):
             'SE EJECUTO ELMINAR()',
             f'El afiliado de identifición {id}\nFue eliminado con exito!!')
     except Exception as ex:
-        messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')  
+        messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')
+
+def eliminar_key_int(tabla, nit):
+    conexion = conectarBD()
+    quary = f"""DELETE FROM {tabla} WHERE nit={nit};"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo(
+            'SE EJECUTO ELMINAR()',
+            f'El afiliado de identifición {nit}\nde la tabla \'{tabla}\'.\nFue eliminado con exito!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')
