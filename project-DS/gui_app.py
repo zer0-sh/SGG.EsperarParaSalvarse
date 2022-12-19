@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
 from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, eliminar
 from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
+from model.entidades import editar_beneficiario, editar_dependiente, editar_independiente
 
 root = tk.Tk()
 
@@ -146,6 +147,7 @@ ancho = 230  # original: 200
 alto = 40    # original: 40
 x_col_izq = 220  # 220
 x_col_der = 690
+
 mi_id = tk.StringVar()
 id_entry = tk.Entry(admin_frame, textvariable=mi_id, font=('Bold', 20))
 id_entry.place(x=x_col_izq, y=100, width=ancho, height=alto)
@@ -421,35 +423,6 @@ def go_admin_to_second():
 btn_second_to_gestionar_afil.config(command=go_second_to_admin)
 btn_admin_to_second.config(command=go_admin_to_second)
 
-def listar():
-    
-    deshabilitar_entries()
-    
-    print(f'\nid: \'{mi_id.get()}\'\ntipo: {type(mi_id.get())}')
-    
-    # recupero el array haciendo el llamado
-    llave = str(mi_id.get())
-    try:
-        afiliado = consultar(llave)
-        resultado = f"""
-        id = {afiliado[0][0]}
-        nombre = {afiliado[0][1]}
-        apellido = {afiliado[0][2]}
-        genero = {afiliado[0][3]}
-        direccion = {afiliado[0][4]}
-        email = {afiliado[0][5]}
-        fecha de nacimiento = {afiliado[0][6]}
-        estado civil = {afiliado[0][7]}
-        tipo afiliacion = {afiliado[0][8]}
-        telefono = {afiliado[0][9]}
-        ciudad = {afiliado[0][10]}
-        ips = {afiliado[0][11]}
-        """
-        
-        messagebox.showinfo('Consulta de Afiliado', resultado)
-    except Exception as ex:
-        messagebox.showerror('Fallo al listar', f'{ex}.')
-
 def habilitar_campos_beneficiario():
     global valindante
     deshabilitar_entries()
@@ -470,14 +443,6 @@ def habilitar_campos_beneficiario():
     ordenes_entry.config(state='normal', bg='white')
     parentesco_entry.config(state='normal', bg='white')
     cotizante_entry.config(state='normal', bg='white')
-    #salario_entry.config(state='normal')
-    #estado_afil_entry.config(state='normal')
-    #fecha_afil_dateentry.config(state='normal')
-    #rango_salarial_entry.config(state='normal')
-    #estado_entry.config(state='normal')
-    #nombre_empresa_entry.config(state='normal')
-    #rut_entry.config(state='normal')
-    #contrato_entry.config(state='normal')
     
     btn_guardar.config(state='normal')
 
@@ -499,16 +464,11 @@ def habilitar_campos_dependiente():
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
-    #parentesco_entry.config(state='normal')
-    #cotizante_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
     rango_salarial_entry.config(state='normal', bg='white')
     estado_entry.config(state='normal', bg='white')
-    #nombre_empresa_entry.config(state='normal')
-    #rut_entry.config(state='normal')
-    #contrato_entry.config(state='normal')
     
     btn_guardar.config(state='normal')
 
@@ -530,18 +490,99 @@ def habilitar_campos_independiente():
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
     ordenes_entry.config(state='normal', bg='white')
-    #parentesco_entry.config(state='normal')
-    #cotizante_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
     rango_salarial_entry.config(state='normal', bg='white')
-    #estado_entry.config(state='normal')
     nombre_empresa_entry.config(state='normal', bg='white')
     rut_entry.config(state='normal', bg='white')
     contrato_entry.config(state='normal', bg='white')
     
     btn_guardar.config(state='normal')
+
+def listar():
+    
+    llave = str(mi_id.get())
+    deshabilitar_entries()
+    
+    try:
+        
+        try:  # Beneficiario
+            beneficiario = consultar(llave, 'beneficiario')
+            
+            mi_id.set(beneficiario[0][0])
+            mi_nombre.set(beneficiario[0][1])
+            mi_apellido.set(beneficiario[0][2])
+            mi_genero.set(beneficiario[0][3])
+            mi_direccion.set(beneficiario[0][4])
+            mi_email.set(beneficiario[0][5])
+            mi_fecha_nacimiento.set(beneficiario[0][6])
+            mi_estado_civil.set(beneficiario[0][7])
+            mi_tipo_afil.set(beneficiario[0][8])
+            mi_telefono.set(beneficiario[0][9])
+            mi_ciudad.set(beneficiario[0][10])
+            mi_ips.set(beneficiario[0][11])
+            mi_ordenes.set(beneficiario[0][12])
+            mi_parentesco.set(beneficiario[0][13])
+            mi_cotizante.set('')
+            #habilitar_campos_beneficiario()
+        except Exception as e:
+            pass
+        
+        try:  # Dependiente
+            dependiente = consultar(llave, 'dependiente')
+            
+            mi_id.set(dependiente[0][0])
+            mi_nombre.set(dependiente[0][1])
+            mi_apellido.set(dependiente[0][2])
+            mi_genero.set(dependiente[0][3])
+            mi_direccion.set(dependiente[0][4])
+            mi_email.set(dependiente[0][5])
+            mi_fecha_nacimiento.set(dependiente[0][6])
+            mi_estado_civil.set(dependiente[0][7])
+            mi_tipo_afil.set(dependiente[0][8])
+            mi_telefono.set(dependiente[0][9])
+            mi_ciudad.set(dependiente[0][10])
+            mi_ips.set(dependiente[0][11])
+            mi_ordenes.set(dependiente[0][12])
+            mi_salario.set(dependiente[0][13])
+            mi_estado_afiliacion.set(dependiente[0][14])
+            mi_fecha_afiliacion.set(dependiente[0][15])
+            mi_estado.set(dependiente[0][16])
+            mi_rango_salarial.set(dependiente[0][17])
+            #habilitar_campos_dependiente()
+        except Exception as e:
+            pass
+        
+        try:  # Independiente
+            independiente = consultar(llave, 'independiente')
+            
+            mi_id.set(independiente[0][0])
+            mi_nombre.set(independiente[0][1])
+            mi_apellido.set(independiente[0][2])
+            mi_genero.set(independiente[0][3])
+            mi_direccion.set(independiente[0][4])
+            mi_email.set(independiente[0][5])
+            mi_fecha_nacimiento.set(independiente[0][6])
+            mi_estado_civil.set(independiente[0][7])
+            mi_tipo_afil.set(independiente[0][8])
+            mi_telefono.set(independiente[0][9])
+            mi_ciudad.set(independiente[0][10])
+            mi_ips.set(independiente[0][11])
+            mi_ordenes.set(independiente[0][12])
+            mi_salario.set(independiente[0][13])
+            mi_estado_afiliacion.set(independiente[0][14])
+            mi_fecha_afiliacion.set(independiente[0][15])
+            mi_nombre_empresa.set(independiente[0][16])
+            mi_rut.set(independiente[0][17])
+            mi_contrato.set(independiente[0][18])
+            mi_rango_salarial.set(independiente[0][19])
+            #habilitar_campos_independiente()
+        except Exception as e:
+            pass
+        
+    except Exception as ex:
+        messagebox.showerror('Fallo al listar', f'{ex}.')
 
 def guardar_datos():
     
@@ -557,6 +598,8 @@ def guardar_datos():
         )
         if mi_id.get() == '':
             agregar_beneficiario(obj_beneficiario)
+        else:
+            editar_beneficiario(obj_beneficiario, mi_id.get())
     elif valindante == 2:
         
         f_afil = fecha_afil_dateentry.get_date().strftime("%y-%m-%d")
@@ -570,6 +613,8 @@ def guardar_datos():
         )
         if mi_id.get() == '':
             agregar_dependiente(obj_dependiente)
+        else:
+            editar_dependiente(obj_dependiente, mi_id.get())
     elif valindante == 3:
         
         f_afil = fecha_afil_dateentry.get_date().strftime("%y-%m-%d")
@@ -583,6 +628,8 @@ def guardar_datos():
         )
         if mi_id.get() == '':
             agregar_independiente(obj_independiente)
+        else:
+            editar_independiente(obj_independiente, mi_id.get())
 
 def eliminar_tupla():
     llave = str(mi_id.get())
@@ -598,6 +645,8 @@ btn_nuevo_dependiente.config(command=habilitar_campos_dependiente)
 btn_nuevo_independiente.config(command=habilitar_campos_independiente)
 btn_guardar.config(command=guardar_datos)
 btn_eliminar.config(command=eliminar_tupla)
+# ------------------------- EMPRESAS FRAME --------------------------
+
 # --------------------------- MAIN FRAME ----------------------------
 main_frame.pack(fill=tk.BOTH, expand=True)
 # -------------------------------------------------------------------

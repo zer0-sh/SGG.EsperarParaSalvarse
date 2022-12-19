@@ -111,11 +111,12 @@ class Ordenes:
         self.ips = ips
         self.afiliado = afiliado
 
-def consultar(id):
+# CONSULT FUNTION
+def consultar(id, tabla):
     conexion = conectarBD()
     
     listar_afiliado = []
-    query = f"""SELECT * FROM afiliado WHERE id=\'{id}\'"""
+    query = f"""SELECT * FROM {tabla} WHERE id=\'{id}\'"""
     
     try:
         conexion.cursor.execute(query)
@@ -141,6 +142,7 @@ def conteo():
     
     return tamaño_tabla[0][0]
 
+# ADD FUNTIONS
 def agregar_beneficiario(objeto):
     conexion = conectarBD()
     #objeto = Beneficiarios()
@@ -205,21 +207,67 @@ def agregar_independiente(objeto):
     except Exception as ex:
         messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.')  
 
-def editar(objeto, id_pelicula):
+# EDIT FUNTIONS
+def editar_beneficiario(objeto, id):
     conexion = conectarBD()
+    objeto = Beneficiarios()
     
-    sql = f"""UPDATE beneficiario
-    SET nombre = \'{objeto.nombre}\', \'{objeto.apellido}\', \'{objeto.genero}\',
-    \'{objeto.direccion}\', \'{objeto.email}\', \'{objeto.f_nac}\', \'{objeto.estado_civil}\',
-    \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, NULL)
-    WHERE id = \'{id_pelicula}\'"""
+    quary = f"""UPDATE beneficiario
+	SET nombre=\'{objeto.nombres}\', apellido=\'{objeto.apellidos}\', genero=\'{objeto.genero}\', 
+	direccion=\'{objeto.direccion}\', email=\'{objeto.email}\', fnacimiento=\'{objeto.fecha_nacimiento}\',
+	estadocivil=\'{objeto.estado_civil}\', tipoafiliacion=\'{objeto.tipo_afil}\', 
+	telefono={objeto.telefono}, ciudad=\'{objeto.ciudad}\', ips={objeto.ips}, 
+	ordenes={objeto.ordenes}, parentesco=\'{objeto.parentesco}\'
+	WHERE id=\'{id}\';  """
     
     try:
-        conexion.cursor.execute(sql)
+        conexion.cursor.execute(quary)
         conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR BENEFICIARIO', 'La edición fue exitosa!!')
     except Exception as ex:
-        messagebox.showerror('ERROR AL EDITAR', f'{ex}.')
+        messagebox.showerror('ERROR AL EDITAR BENEFICIARIO', f'{ex}.')
 
+def editar_dependiente(objeto, id):
+    conexion = conectarBD()
+    
+    quary = f"""UPDATE dependiente
+	SET nombre=\'{objeto.nombres}\', apellido=\'{objeto.apellidos}\', genero=\'{objeto.genero}\', 
+	direccion=\'{objeto.direccion}\', email=\'{objeto.email}\', fnacimiento=\'{objeto.fecha_nacimiento}\',
+	estadocivil=\'{objeto.estado_civil}\', tipoafiliacion=\'{objeto.tipo_afil}\', 
+	telefono={objeto.telefono}, ciudad=\'{objeto.ciudad}\', ips={objeto.ips}, 
+	ordenes={objeto.ordenes}, salario={objeto.salario}, estadoafiliacion=\'{objeto.estado_afiliacion}\', 
+	fechaafiliacion=\'{objeto.fecha_afiliacion}\', estado=\'{objeto.estado}\',
+	rangosalarial=\'{objeto.rango_salarial}\'
+	WHERE id=\'{id}\';  """
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR DEPENDIENTE', 'La edición fue exitosa!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL EDITAR DEPENDIENTE', f'{ex}.')
+
+def editar_independiente(objeto, id):
+    conexion = conectarBD()
+    
+    quary = f"""UPDATE independiente
+	SET nombre=\'{objeto.nombres}\', apellido=\'{objeto.apellidos}\', genero=\'{objeto.genero}\', 
+	direccion=\'{objeto.direccion}\', email=\'{objeto.email}\', fnacimiento=\'{objeto.fecha_nacimiento}\',
+	estadocivil=\'{objeto.estado_civil}\', tipoafiliacion=\'{objeto.tipo_afil}\', 
+	telefono={objeto.telefono}, ciudad=\'{objeto.ciudad}\', ips={objeto.ips}, 
+	ordenes={objeto.ordenes}, salario={objeto.salario}, estadoafiliacion=\'{objeto.estado_afiliacion}\', 
+	fechaafiliacion=\'{objeto.fecha_afiliacion}\', nombreempresa=\'{objeto.nombre_empresa}\', 
+	rut={objeto.rut}, contrato=\'{objeto.contrato}\', rangosalarial=\'{objeto.rango_salarial}\'
+	WHERE id=\'{id}\';  """
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR INDEPENDIENTE', 'La edición fue exitosa!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL EDITAR INDEPENDIENTE', f'{ex}.')
+
+# DELETE FUNTION
 def eliminar(id):
     conexion = conectarBD()
     quary = f"""DELETE FROM afiliado WHERE id=\'{id}\';"""
