@@ -696,8 +696,8 @@ x_col_izq = 300
 x_col_der = 930
 
 # izquierda ------------
-mi_nit_empresa = tk.StringVar()
-nit_entry_emp = tk.Entry(empresas_frame, textvariable=mi_nit_empresa, font=('Bold', 20))
+mi_nit = tk.StringVar()
+nit_entry_emp = tk.Entry(empresas_frame, textvariable=mi_nit, font=('Bold', 20))
 nit_entry_emp.place(x=x_col_izq, y=200, width=ancho, height=alto)
 
 mi_razon_social = tk.StringVar()
@@ -770,7 +770,7 @@ def deshabilitar_entries_empresas():
     
     btn_guardar_empresas.config(state='disabled')
     
-    mi_nit_empresa.set('')
+    mi_nit.set('')
     mi_razon_social.set('')
     mi_ciudad.set('')
     mi_direccion.set('')
@@ -788,10 +788,10 @@ def deshabilitar_entries_empresas():
 
 def listar_empresa():
     try:
-        llave = str(mi_nit_empresa.get())
+        llave = str(mi_nit.get())
         empresa = consultar_empresa(llave, 'empresa')
         
-        mi_nit_empresa.set(empresa[0][0])
+        mi_nit.set(empresa[0][0])
         mi_razon_social.set(empresa[0][1])
         mi_ciudad.set(empresa[0][2])
         mi_direccion.set(empresa[0][3])
@@ -842,13 +842,13 @@ def empresa_agregar():
         mi_nombre_contacto.get(), mi_contrato.get()
     )
     
-    if mi_nit_empresa.get() == '':
+    if mi_nit.get() == '':
         agregar_empresa(obj_empresa)
     else:
         print(f'no pasó al agregar_empresas()')
 
 def eliminar_empresa():
-    llave = str(mi_nit_empresa.get())
+    llave = str(mi_nit.get())
     try:
         listar()
         eliminar_key_int('empresa', llave)
@@ -868,6 +868,27 @@ btn_contratos_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.0
 btn_contratos_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
+
+#ENTRIES
+ancho = 310
+alto = 80
+x_col_izq = 300
+x_col_der = 930
+# izquierda ------------
+mi_num_radicado_contrado = tk.StringVar()
+num_radicado_entry_contrato = tk.Entry(
+    contratos_frame, textvariable=mi_num_radicado_contrado, font=('Bold', 25))
+num_radicado_entry_contrato.place(x=x_col_izq, y=240, width=ancho, height=alto)
+
+estado_entry_contratos = tk.Entry(contratos_frame, textvariable=mi_estado, font=('Bold', 25))
+estado_entry_contratos.place(x=x_col_izq, y=340, width=ancho, height=alto)
+# derecha --------------
+nit_entry_contratos = tk.Entry(contratos_frame, textvariable=mi_nit, font=('Bold', 25))
+nit_entry_contratos.place(x=x_col_der, y=240, width=ancho, height=alto)
+
+mi_reporte_contratos = tk.StringVar()
+reporte_entry_contratos = tk.Entry(contratos_frame, textvariable=mi_nombre_contacto, font=('Bold', 25))
+reporte_entry_contratos.place(x=x_col_der, y=340, width=ancho, height=alto)
 
 # LABELS
 def etiquetas_contratos():
@@ -924,8 +945,6 @@ btn_reportes_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05
 btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
-
-
 
 # LABELS
 title_label = tk.Label(
