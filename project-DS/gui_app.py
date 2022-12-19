@@ -724,15 +724,15 @@ contrato_entry_emp.place(x=x_col_der, y=360, width=ancho, height=alto)
 
 # LABELS
 def etiquetas_empresas():
-    ancho = 300  # original: 200
-    alto = 60    # original: 40
-    x_col_izq = 0   # original: 20
-    x_col_der = 630   # original: 510
     title_label = tk.Label(
         empresas_frame, text='EMPRESAS', font=('Bold', 40), bg='#139a80', fg='white',
         anchor='center')
     title_label.place(x=520, y=70, width=300, height=60) # tittle
 
+    ancho = 300  # original: 200
+    alto = 60    # original: 40
+    x_col_izq = 0   # original: 20
+    x_col_der = 630   # original: 510
     # izquierda ------------
     nit_label = tk.Label(
         empresas_frame, text='NIT:', font=('Bold', 25), bg='#139a80', fg='white', anchor='e')
@@ -870,11 +870,34 @@ btn_contratos_to_second.config(
     font=('Bold', 10), activebackground='#35BD6F')
 
 # LABELS
-title_label = tk.Label(
-    contratos_frame, text='CONTRATOS', font=('Bold', 35), bg='#139a80', fg='white',
-    anchor='center')
-title_label.place(x=520, y=70, width=300, height=60)
+def etiquetas_contratos():
+    title_label = tk.Label(
+        contratos_frame, text='CONTRATOS', font=('Bold', 35), bg='#139a80', fg='white',
+        anchor='center')
+    title_label.place(x=520, y=70, width=300, height=60)
+    
+    ancho = 300  # original: 200
+    alto = 80    # original: 40
+    x_col_izq = 0   # original: 20
+    x_col_der = 630   # original: 510
+    # izquierda ------------
+    num_radicado_label_contratos = tk.Label(
+        contratos_frame, text='NÚMERO DE\n  RADICADO:', font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    num_radicado_label_contratos.place(x=x_col_izq, y=240, width=ancho, height=alto)
 
+    estado_label_contratos = tk.Label(
+        contratos_frame, text='ESTADO:', font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    estado_label_contratos.place(x=x_col_izq, y=340, width=ancho, height=alto)
+    # derecha --------------
+    nit_label_contratos = tk.Label(
+        contratos_frame, text='NIT:', font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    nit_label_contratos.place(x=x_col_der, y=240, width=ancho, height=alto)
+
+    reporte_label_contrato = tk.Label(
+        contratos_frame, text='CÓDIGO DE\n   REPORTE:', font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    reporte_label_contrato.place(x=x_col_der, y=340, width=ancho, height=alto)
+
+etiquetas_contratos()
 
 def go_second_to_contratos():
     try:
@@ -901,6 +924,8 @@ btn_reportes_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05
 btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
+
+
 
 # LABELS
 title_label = tk.Label(
