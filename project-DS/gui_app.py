@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
-from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, editar
+from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, eliminar
 from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
 
 root = tk.Tk()
@@ -179,7 +179,7 @@ estado_civil_entry = tk.OptionMenu(admin_frame, mi_estado_civil, *['Soltero', 'C
 estado_civil_entry.place(x=x_col_izq, y=450, width=ancho, height=alto)
 
 mi_tipo_afil = tk.StringVar()
-tipo_afil_entry = tk.OptionMenu(admin_frame, mi_tipo_afil, *['Cotizante', 'Beneficiario'])
+tipo_afil_entry = tk.Entry(admin_frame, textvariable=mi_tipo_afil, font=('Bold', 20))
 tipo_afil_entry.place(x=x_col_izq, y=500, width=ancho, height=alto)
 
 mi_telefono = tk.StringVar()
@@ -241,9 +241,10 @@ contrato_entry = tk.OptionMenu(admin_frame, mi_contrato, *['60001', '60002', '60
 contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
 
 def deshabilitar_entries():
-    mi_id = None
+    global valindante
     valindante = 0
     
+    mi_id.set('')
     mi_nombre.set('')
     mi_apellido.set('')
     mi_genero.set('')
@@ -421,14 +422,11 @@ btn_second_to_gestionar_afil.config(command=go_second_to_admin)
 btn_admin_to_second.config(command=go_admin_to_second)
 
 def listar():
-    beni = Beneficiarios
-    
-    if beni == Beneficiarios:
-        print('Si es igual\n')
-    else:
-        print('No pasó\n')
     
     deshabilitar_entries()
+    
+    print(f'\nid: \'{mi_id.get()}\'\ntipo: {type(mi_id.get())}')
+    
     # recupero el array haciendo el llamado
     llave = str(mi_id.get())
     try:
@@ -456,6 +454,7 @@ def habilitar_campos_beneficiario():
     global valindante
     deshabilitar_entries()
     valindante = 1
+    mi_tipo_afil.set('Beneficiario')
 
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -464,7 +463,7 @@ def habilitar_campos_beneficiario():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
@@ -486,6 +485,7 @@ def habilitar_campos_dependiente():
     global valindante
     deshabilitar_entries()
     valindante = 2
+    mi_tipo_afil.set('Cotizante')
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -494,7 +494,7 @@ def habilitar_campos_dependiente():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
@@ -516,6 +516,7 @@ def habilitar_campos_independiente():
     global valindante
     deshabilitar_entries()
     valindante = 3
+    mi_tipo_afil.set('Cotizante')
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -524,7 +525,7 @@ def habilitar_campos_independiente():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='normal', bg='white')
+    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
@@ -547,16 +548,15 @@ def guardar_datos():
     f_nac = fecha_nac_dateentry.get_date().strftime("%y-%m-%d")
     
     if valindante == 1:
+        
         obj_beneficiario = Beneficiarios(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-            mi_email.get(), f_nac, mi_estado_civil.get(),
-            mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
-            mi_ordenes.get(), mi_parentesco.get(), mi_cotizante.get()
+            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(),
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), 
+            mi_parentesco.get(), mi_cotizante.get()
         )
         if mi_id.get() == '':
             agregar_beneficiario(obj_beneficiario)
-        #else:
-        #    editar(obj_beneficiario, mi_id)
     elif valindante == 2:
         
         f_afil = fecha_afil_dateentry.get_date().strftime("%y-%m-%d")
@@ -584,11 +584,20 @@ def guardar_datos():
         if mi_id.get() == '':
             agregar_independiente(obj_independiente)
 
+def eliminar_tupla():
+    llave = str(mi_id.get())
+    try:
+        listar()
+        eliminar(llave)
+    except Exception as ex:
+        messagebox.showerror('Fallo al eliminar', f'{ex}.')
+
 btn_consulta.config(command=listar)
 btn_nuevo_beneficiario.config(command=habilitar_campos_beneficiario)
 btn_nuevo_dependiente.config(command=habilitar_campos_dependiente)
 btn_nuevo_independiente.config(command=habilitar_campos_independiente)
 btn_guardar.config(command=guardar_datos)
+btn_eliminar.config(command=eliminar_tupla)
 # --------------------------- MAIN FRAME ----------------------------
 main_frame.pack(fill=tk.BOTH, expand=True)
 # -------------------------------------------------------------------

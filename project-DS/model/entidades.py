@@ -130,7 +130,7 @@ def conteo():
     conexion = conectarBD()
     
     tamaño_tabla = []
-    quary = """SELECT count(*) FROM afiliado"""
+    quary = """SELECT max(id) FROM afiliado """
     
     try:
         conexion.cursor.execute(quary)
@@ -144,15 +144,16 @@ def conteo():
 def agregar_beneficiario(objeto):
     conexion = conectarBD()
     #objeto = Beneficiarios()
-    tam = conteo()
+    tam = int(conteo()) + 1
     
     quary = f"""INSERT INTO beneficiario
-        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
-        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, \'{objeto.parentesco}\'
+        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
+        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
+        {objeto.ips}, {objeto.ordenes}, \'{objeto.parentesco}\'
         );"""
-    # , \'{objeto.cotizante}\',
+    
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
@@ -163,15 +164,15 @@ def agregar_beneficiario(objeto):
 def agregar_dependiente(objeto):
     conexion = conectarBD()
     #objeto = Dependientes()
-    tam = conteo()
+    tam = int(conteo()) + 1
     
     quary = f"""INSERT INTO dependiente
-        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
-        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, {objeto.salario},
-        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\', \'{objeto.estado}\',
-        \'{objeto.rango_salarial}\'
+        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
+        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
+        {objeto.ips}, {objeto.ordenes}, {objeto.salario}, \'{objeto.estado_afiliacion}\', 
+        \'{objeto.fecha_afiliacion}\', \'{objeto.estado}\', \'{objeto.rango_salarial}\'
         );"""
     
     try:
@@ -184,15 +185,17 @@ def agregar_dependiente(objeto):
 def agregar_independiente(objeto):
     conexion = conectarBD()
     #objeto = Independientes()
-    tam = conteo()
+    tam = int(conteo()) + 1
     
     quary = f"""INSERT INTO independiente
-        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
-        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, {objeto.salario},
-        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\', \'{objeto.nombre_empresa}\',
-        {objeto.rut}, \'{objeto.contrato}\', \'{objeto.rango_salarial}\'
+        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
+        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
+        {objeto.ips}, {objeto.ordenes}, {objeto.salario},
+        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\',
+        \'{objeto.nombre_empresa}\', {objeto.rut}, \'{objeto.contrato}\', 
+        \'{objeto.rango_salarial}\'
         );"""
     
     try:
@@ -217,5 +220,15 @@ def editar(objeto, id_pelicula):
     except Exception as ex:
         messagebox.showerror('ERROR AL EDITAR', f'{ex}.')
 
-def eliminar():
-    pass
+def eliminar(id):
+    conexion = conectarBD()
+    quary = f"""DELETE FROM afiliado WHERE id=\'{id}\';"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo(
+            'SE EJECUTO ELMINAR()',
+            f'El afiliado de identifición {id}\nFue eliminado con exito!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')  
