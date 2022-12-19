@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
-from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, editar, agregar_beneficiario
+from model.entidades import Beneficiarios, Dependientes, Independientes, consultar, editar
+from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
 
 root = tk.Tk()
 
@@ -21,6 +22,7 @@ root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight-50
 main_frame = tk.Frame(root, bg='white') 
 """ Generamos un nuevo objeto frame, que se podrá remplazar por otro. 
 Existe dentro de main_frame"""
+valindante = 0
 # --------------------------- HOME FRAME ----------------------------
 home_frame = tk.Frame(main_frame, bg='#139a80')
 # buttons
@@ -240,6 +242,7 @@ contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
 
 def deshabilitar_entries():
     mi_id = None
+    valindante = 0
     
     mi_nombre.set('')
     mi_apellido.set('')
@@ -418,7 +421,13 @@ btn_second_to_gestionar_afil.config(command=go_second_to_admin)
 btn_admin_to_second.config(command=go_admin_to_second)
 
 def listar():
-    print(f'-----> opcion genero: {mi_fecha_nacimiento.get()}, type: {type(mi_fecha_nacimiento.get())}')
+    beni = Beneficiarios
+    
+    if beni == Beneficiarios:
+        print('Si es igual\n')
+    else:
+        print('No pasó\n')
+    
     deshabilitar_entries()
     # recupero el array haciendo el llamado
     llave = str(mi_id.get())
@@ -444,7 +453,9 @@ def listar():
         messagebox.showerror('Fallo al listar', f'{ex}.')
 
 def habilitar_campos_beneficiario():
+    global valindante
     deshabilitar_entries()
+    valindante = 1
 
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -472,7 +483,9 @@ def habilitar_campos_beneficiario():
     btn_guardar.config(state='normal')
 
 def habilitar_campos_dependiente():
+    global valindante
     deshabilitar_entries()
+    valindante = 2
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -500,7 +513,9 @@ def habilitar_campos_dependiente():
     btn_guardar.config(state='normal')
 
 def habilitar_campos_independiente():
+    global valindante
     deshabilitar_entries()
+    valindante = 3
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -529,34 +544,45 @@ def habilitar_campos_independiente():
 
 def guardar_datos():
     
-    obj_beneficiario = Beneficiarios(
-        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
-        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
-        mi_ordenes.get(), mi_parentesco.get(), mi_cotizante.get()
-    )
+    f_nac = fecha_nac_dateentry.get_date().strftime("%y-%m-%d")
     
-    obj_dependiente = Dependientes(
-        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
-        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
-        mi_ordenes.get(), mi_salario.get, mi_estado_afiliacion.get(),
-        fecha_afil_dateentry.get_date(), mi_rango_salarial.get(), mi_estado.get()
-    )
-    
-    obj_independiente = Independientes(
-        mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-        mi_email.get(), fecha_nac_dateentry.get_date(), mi_estado_civil.get(),
-        mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
-        mi_ordenes.get(), mi_salario.get, mi_estado_afiliacion.get(),
-        fecha_afil_dateentry.get_date(), mi_rango_salarial.get(), 
-        mi_nombre_empresa.get(), mi_rut.get(), mi_contrato.get()
-    )
-    
-    if mi_id.get() == '':
-        agregar_beneficiario(obj_beneficiario)
-    else:
-        editar(obj_beneficiario, mi_id)
+    if valindante == 1:
+        obj_beneficiario = Beneficiarios(
+            mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+            mi_email.get(), f_nac, mi_estado_civil.get(),
+            mi_tipo_afil.get(), mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
+            mi_ordenes.get(), mi_parentesco.get(), mi_cotizante.get()
+        )
+        if mi_id.get() == '':
+            agregar_beneficiario(obj_beneficiario)
+        #else:
+        #    editar(obj_beneficiario, mi_id)
+    elif valindante == 2:
+        
+        f_afil = fecha_afil_dateentry.get_date().strftime("%y-%m-%d")
+        
+        obj_dependiente = Dependientes(
+            mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(),
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
+            mi_salario.get(), mi_estado_afiliacion.get(), f_afil, 
+            mi_rango_salarial.get(), mi_estado.get()
+        )
+        if mi_id.get() == '':
+            agregar_dependiente(obj_dependiente)
+    elif valindante == 3:
+        
+        f_afil = fecha_afil_dateentry.get_date().strftime("%y-%m-%d")
+        
+        obj_independiente = Independientes(
+            mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
+            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(), 
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
+            mi_salario.get(), mi_estado_afiliacion.get(), f_afil, mi_rango_salarial.get(),
+            mi_nombre_empresa.get(), mi_rut.get(), mi_contrato.get()
+        )
+        if mi_id.get() == '':
+            agregar_independiente(obj_independiente)
 
 btn_consulta.config(command=listar)
 btn_nuevo_beneficiario.config(command=habilitar_campos_beneficiario)

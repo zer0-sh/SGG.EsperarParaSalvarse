@@ -38,9 +38,9 @@ class Cotizantes(Afiliados):
             nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil,
             telf, ciudad, ips, ordenes)
         self.salario = salario
-        self.estadoafiliacion = estado_afil
-        self.fechaprieraafiliacion = f_afil
-        self.rangosalarial = rango_sal
+        self.estado_afiliacion = estado_afil
+        self.fecha_afiliacion = f_afil
+        self.rango_salarial = rango_sal
         
 class Dependientes(Cotizantes):
     def __init__(
@@ -143,22 +143,64 @@ def conteo():
 
 def agregar_beneficiario(objeto):
     conexion = conectarBD()
-    objeto = Beneficiarios()
+    #objeto = Beneficiarios()
     tam = conteo()
     
     quary = f"""INSERT INTO beneficiario
-        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\', \'{objeto.genero}\',
-        \'{objeto.direccion}\', \'{objeto.email}\', \'{objeto.fecha_nacimiento}\',
-        \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, \'{objeto.ordenes}\', \'{objeto.parentesco}\', \'{objeto.cotizante}\',
+        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
+        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, \'{objeto.parentesco}\'
         );"""
-    
+    # , \'{objeto.cotizante}\',
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
         print('ejecutó agregar_beneficiario()')
     except Exception as ex:
         messagebox.showerror('ERROR EN AGREGAR BENEFICIARIO', f'{ex}.')  
+
+def agregar_dependiente(objeto):
+    conexion = conectarBD()
+    #objeto = Dependientes()
+    tam = conteo()
+    
+    quary = f"""INSERT INTO dependiente
+        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
+        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, {objeto.salario},
+        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\', \'{objeto.estado}\',
+        \'{objeto.rango_salarial}\'
+        );"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        print('ejecutó agregar_dependiente()')
+    except Exception as ex:
+        messagebox.showerror('ERROR EN AGREGAR DEPENDIENTE', f'{ex}.')  
+
+def agregar_independiente(objeto):
+    conexion = conectarBD()
+    #objeto = Independientes()
+    tam = conteo()
+    
+    quary = f"""INSERT INTO independiente
+        VALUES(\'{tam + 10001}\' , \'{objeto.nombres}\', \'{objeto.apellidos}\',
+        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\', 
+        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', \'{objeto.tipo_afil}\',
+        {objeto.telefono}, \'{objeto.ciudad}\', {objeto.ips}, {objeto.ordenes}, {objeto.salario},
+        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\', \'{objeto.nombre_empresa}\',
+        {objeto.rut}, \'{objeto.contrato}\', \'{objeto.rango_salarial}\'
+        );"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        print('ejecutó agregar_independiente()')
+    except Exception as ex:
+        messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.')  
 
 def editar(objeto, id_pelicula):
     conexion = conectarBD()
