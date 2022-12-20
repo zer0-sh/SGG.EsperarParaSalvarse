@@ -45,7 +45,7 @@ home_frame.pack(fill=tk.BOTH, expand=True)
 second_frame = tk.Frame(main_frame, bg='#139a80')
 # buttons
 btn_second_to_home = tk.Button(second_frame)
-btn_second_to_home.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
+btn_second_to_home.place(x=20, y=30, width=180, height=60)
 btn_second_to_home.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
@@ -101,7 +101,7 @@ afiliados_frame = tk.Frame(main_frame, bg='#139a80')
 
 # buttons
 btn_admin_to_second = tk.Button(afiliados_frame)
-btn_admin_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
+btn_admin_to_second.place(x=20, y=30, width=180, height=60)
 btn_admin_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
@@ -652,12 +652,13 @@ btn_nuevo_dependiente.config(command=habilitar_campos_dependiente)
 btn_nuevo_independiente.config(command=habilitar_campos_independiente)
 btn_guardar.config(command=guardar_datos)
 btn_eliminar.config(command=eliminar_tupla)
+
 # ------------------------- EMPRESAS FRAME --------------------------
 empresas_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
 btn_empresas_to_second = tk.Button(empresas_frame)
-btn_empresas_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
+btn_empresas_to_second.place(x=20, y=30, width=180, height=60)
 btn_empresas_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
@@ -864,10 +865,37 @@ contratos_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
 btn_contratos_to_second = tk.Button(contratos_frame)
-btn_contratos_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
+btn_contratos_to_second.place(x=20, y=30, width=180, height=60)
 btn_contratos_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
+
+alto_btn = 100    # original: 90
+ancho_btn = 310  # original: 320
+y_btn = 550      # original: 650
+btn_consultar_empresas = tk.Button(contratos_frame)
+btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_consultar_empresas.config(
+    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_agregar_empresas = tk.Button(contratos_frame)
+btn_agregar_empresas.place(x=330, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_agregar_empresas.config(
+    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_guardar_empresas = tk.Button(contratos_frame)
+btn_guardar_empresas.place(x=640, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_guardar_empresas.config(
+    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
+
+btn_eliminar_empresas = tk.Button(contratos_frame)
+btn_eliminar_empresas.place(x=950, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_eliminar_empresas.config(
+    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 28), activebackground='#35BD6F')
 
 #ENTRIES
 ancho = 310
@@ -941,16 +969,74 @@ reportes_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
 btn_reportes_to_second = tk.Button(reportes_frame)
-btn_reportes_to_second.place(relx=0.01, rely=0.01, relwidth=0.16, relheight=0.05)
+btn_reportes_to_second.place(x=20, y=30, width=180, height=60)
 btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
     font=('Bold', 10), activebackground='#35BD6F')
 
+
+alto_btn = 100
+ancho_btn = 310
+y_btn = 540
+btn_consultar_empresas = tk.Button(reportes_frame)
+btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_consultar_empresas.config(
+    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 30), activebackground='#35BD6F')
+
+btn_agregar_empresas = tk.Button(reportes_frame)
+btn_agregar_empresas.place(x=330, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_agregar_empresas.config(
+    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 30), activebackground='#35BD6F')
+
+btn_guardar_empresas = tk.Button(reportes_frame)
+btn_guardar_empresas.place(x=640, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_guardar_empresas.config(
+    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 30), activebackground='#35BD6F')
+
+btn_eliminar_empresas = tk.Button(reportes_frame)
+btn_eliminar_empresas.place(x=950, y=y_btn, width=ancho_btn, height=alto_btn)
+btn_eliminar_empresas.config(
+    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 30), activebackground='#35BD6F')
+
+#ENTRIES
+ancho = 810
+alto = 80
+x_col_der = 370   # original: 510
+
+num_radicado_label_reportes = tk.StringVar()
+num_radicado_entry_reportes = tk.Entry(
+    reportes_frame, textvariable=mi_num_radicado_contrado, font=('Bold', 25))
+num_radicado_entry_reportes.place(x=x_col_der, y=260, width=ancho, height=alto)
+
+fecha_entry_reportes = tk.Entry(reportes_frame, textvariable=mi_estado, font=('Bold', 25))
+fecha_entry_reportes.place(x=x_col_der, y=370, width=ancho, height=alto)
+
 # LABELS
-title_label = tk.Label(
-    reportes_frame, text='REPORTES', font=('Bold', 35), bg='#139a80', fg='white',
-    anchor='center')
-title_label.place(x=520, y=70, width=300, height=60)
+def etiquetas_reportes():
+    title_label = tk.Label(
+        reportes_frame, text='REPORTES', font=('Bold', 35), bg='#139a80', fg='white',
+        anchor='center')
+    title_label.place(x=520, y=70, width=300, height=60)
+    
+    ancho = 250
+    alto = 80
+    x_col_izq = 120
+    
+    num_radicado_label_reportes = tk.Label(
+        reportes_frame, text='NÚMERO DE\n  RADICADO:', 
+        font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    num_radicado_label_reportes.place(x=x_col_izq, y=260, width=ancho, height=alto)
+
+    fecha_label_reportes = tk.Label(
+        reportes_frame, text='FECHA DE\n    RETIRO:', 
+        font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    fecha_label_reportes.place(x=x_col_izq, y=370, width=ancho, height=alto)
+
+etiquetas_reportes()
 
 def go_second_to_reportes():
     try:

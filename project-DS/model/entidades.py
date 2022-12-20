@@ -74,44 +74,17 @@ class Empresa:
         self.nombre_contacto = nombrecontacto
         self.contrato = contrato
 
-class Ips:
-    def __init__(self, nit, razonsocial, nivelatencion):
-        self.nit = nit
-        self.razonsocial = razonsocial
-        self.nivelatencion = nivelatencion
-
-class Servicios:
-    def __init__(self, codigo, nombre,ips):
-        self.codigo = codigo
-        self.nombre = nombre
-        self.ips = ips
-
 class Reporte:
-    def __init__(self, nroradicado, fecharecibo, codcotizante, nit_empresa):
-        self.nroradicado = nroradicado
-        self.fecharecibo = fecharecibo
-        self.codcotizante = codcotizante
-        self.nit_empresa = nit_empresa
+    def __init__(self, nro_radicado, fecha_recibo):
+        self.num_radicado = nro_radicado
+        self.fecha_recibo = fecha_recibo
 
-class ReporteContrato(Reporte):
-    def __init__(self, nroradicado, fecharecibo, codcotizante, nit_empresa, salario):
-        super().__init__(nroradicado, fecharecibo, codcotizante, nit_empresa)
-        self.salario = salario
-
-class ReporteRetiro(Reporte):
-    def __init__(self, nroradicado, fecharecibo, codcotizante, nit_empresa, fecharetiro):
-        super().__init__(nroradicado, fecharecibo, codcotizante, nit_empresa)
-        self.fecharetiro = fecharetiro
-
-class Ordenes:
-    def __init__(self, codigo, fechaorden, medico, diagnostico, descripcionserv, ips, afiliado):
-        self.codigo = codigo
-        self.fechaorden = fechaorden
-        self.medico = medico
-        self.diagnostico = diagnostico
-        self.descripcionserv = descripcionserv
-        self.ips = ips
-        self.afiliado = afiliado
+class Contratos:
+    def __init__(self, num_radicado, estado, nit, codigo_reporte):
+        self.num_radicado = num_radicado
+        self.estado = estado
+        self.nit = nit
+        self.cod_reporte = codigo_reporte
 
 # CONSULT FUNTION
 def consultar(id, tabla):
@@ -264,7 +237,43 @@ def agregar_empresa(objeto):
             'SE EJECUTO AGREGAR EMPRESA',
             f'La empresa de nit: {tam}\nFue añadido a Base de\ndatos con exito!!')
     except Exception as ex:
-        messagebox.showerror('ERROR EN AGREGAR INDEPENDIENTE', f'{ex}.') 
+        messagebox.showerror('ERROR EN AGREGAR EMPRESA', f'{ex}.')
+
+def agregar_contratos(objeto):
+    conexion = conectarBD()
+    #objeto = Contratos()
+    tam = int(max_tuplas('contrato', 'nroradicado')) + 1
+    
+    quary = f"""INSERT INTO contrato
+        VALUES({tam}, \'{objeto.estado}\', {objeto.nit}, {objeto.num_radicado}
+        );"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR CONTRATO',
+            f'El contrato de número: {tam}\nFue añadido a Base de\ndatos con exito!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR EN AGREGAR CONTRATO', f'{ex}.')
+
+def agregar_reporte(objeto):
+    conexion = conectarBD()
+    #objeto = Reporte()
+    tam = int(max_tuplas('reporte', 'radicadorepor')) + 1
+    
+    quary = f"""INSERT INTO reporte
+        VALUES({tam}, \'{objeto.fecharecibo}\'
+        );"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo(
+            'SE EJECUTO AGREGAR REPORTE',
+            f'El reporte de número: {tam}\nFue añadido a Base de\ndatos con exito!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR EN AGREGAR REPORTE', f'{ex}.')
 
 # EDIT FUNTIONS
 def editar_beneficiario(objeto, id):
@@ -325,6 +334,53 @@ def editar_independiente(objeto, id):
         messagebox.showinfo('FUNCION EDITAR INDEPENDIENTE', 'La edición fue exitosa!!')
     except Exception as ex:
         messagebox.showerror('ERROR AL EDITAR INDEPENDIENTE', f'{ex}.')
+
+def editar_empresa(objeto, nit):
+    conexion = conectarBD()
+    #objeto = Empresa()
+    
+    quary = f"""UPDATE empresa
+	SET razonsocial='{objeto.razon_social}', ciudad='{objeto.ciudad}', 
+	direccion='{objeto.direccion}', telefono={objeto.telefono},
+    nombrecontacto=\'{objeto.nombre_contacto}\'
+	WHERE nit={nit};"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR EMPRESA', 'La edición fue exitosa!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL EDITAR EMPRESA', f'{ex}.')
+
+def editar_contratos(objeto, num_radicado):
+    conexion = conectarBD()
+    objeto = Contratos()
+    
+    quary = f"""UPDATE contrato
+	SET estado='{objeto.estado}', afiliado={objeto.nit}, empresa={objeto.cod_reporte}
+	WHERE nroradicado={num_radicado};"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR CONTRATOS', 'La edición fue exitosa!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL EDITAR CONTRATOS', f'{ex}.')
+
+def editar_reporte(objeto, num_radicado):
+    conexion = conectarBD()
+    #objeto = Reporte()
+    
+    quary = f"""UPDATE reporteretiro
+	SET fecharetiro={objeto.fecha_recibo}
+	WHERE nroradicado={num_radicado};"""
+    
+    try:
+        conexion.cursor.execute(quary)
+        conexion.cerrar()
+        messagebox.showinfo('FUNCION EDITAR REPORTE', 'La edición fue exitosa!!')
+    except Exception as ex:
+        messagebox.showerror('ERROR AL EDITAR REPORTE', f'{ex}.')
 
 # DELETE FUNTION
 def eliminar(id):
