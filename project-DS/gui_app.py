@@ -183,21 +183,21 @@ mi_nombre = tk.StringVar()
 nombre_entry = tk.Entry(afiliados_frame, textvariable=mi_nombre, font=('Bold', 20))
 nombre_entry.place(x=x_col_izq, y=180, width=ancho, height=alto)
 
+mi_apellido = tk.StringVar()
+apellido_entry = tk.Entry(afiliados_frame, textvariable=mi_apellido, font=('Bold', 20))
+apellido_entry.place(x=x_col_izq, y=230, width=ancho, height=alto)
+
 mi_genero = tk.StringVar()
-genero_entry = tk.OptionMenu(afiliados_frame, mi_genero, *['Masculino', 'Femenino'])
-genero_entry.place(x=x_col_izq, y=230, width=ancho, height=alto)
+genero_entry = tk.OptionMenu(afiliados_frame, mi_genero, *['M', 'F'])
+genero_entry.place(x=x_col_izq, y=280, width=ancho, height=alto)
 
 mi_direccion = tk.StringVar()
 direccion_entry = tk.Entry(afiliados_frame, textvariable=mi_direccion, font=('Bold', 20))
-direccion_entry.place(x=x_col_izq, y=280, width=ancho, height=alto)
+direccion_entry.place(x=x_col_izq, y=330, width=ancho, height=alto)
 
 mi_email = tk.StringVar()
 email_entry = tk.Entry(afiliados_frame, textvariable=mi_email, font=('Bold', 20))
-email_entry.place(x=x_col_izq, y=330, width=ancho, height=alto)
-
-mi_apellido = tk.StringVar()
-apellido_entry = tk.Entry(afiliados_frame, textvariable=mi_apellido, font=('Bold', 20))
-apellido_entry.place(x=x_col_izq, y=380, width=ancho, height=alto)
+email_entry.place(x=x_col_izq, y=380, width=ancho, height=alto)
 
 mi_fecha_nacimiento = tk.StringVar()
 fecha_nac_dateentry = DateEntry(afiliados_frame, textvariable=mi_fecha_nacimiento, font=('Bold', 20))
@@ -222,56 +222,58 @@ ips_entry = tk.OptionMenu(
 ips_entry.place(x=x_col_izq, y=630, width=ancho, height=alto)
 
 #-------- COLUMNA DERRECHA
-
 mi_parentesco = tk.StringVar()
 parentesco_entry = tk.OptionMenu(
     afiliados_frame, mi_parentesco, *['Cónyuge', 'Padre', 'Madre', 'Hijo', 'Hermanos', 'Amigos'])
-parentesco_entry.place(x=x_col_der, y=150, width=ancho, height=alto)
+parentesco_entry.place(x=x_col_der, y=130, width=ancho, height=alto)
 
 mi_cotizante = tk.StringVar()
 cotizante_entry = tk.Entry(afiliados_frame, textvariable=mi_cotizante, font=('Bold', 20))
-cotizante_entry.place(x=x_col_der, y=200, width=ancho, height=alto)
+cotizante_entry.place(x=x_col_der, y=180, width=ancho, height=alto)
 
 mi_salario = tk.StringVar()
 salario_entry = tk.Entry(afiliados_frame, textvariable=mi_salario, font=('Bold', 20))
-salario_entry.place(x=x_col_der, y=250, width=ancho, height=alto)
+salario_entry.place(x=x_col_der, y=230, width=ancho, height=alto)
 
 mi_estado_afiliacion = tk.StringVar()
 estado_afil_entry = tk.OptionMenu(
     afiliados_frame, mi_estado_afiliacion, *['Activo', 'Retirado', 'Inactivo'])
-estado_afil_entry.place(x=x_col_der, y=300, width=ancho, height=alto)
+estado_afil_entry.place(x=x_col_der, y=280, width=ancho, height=alto)
 
 mi_fecha_afiliacion = tk.StringVar()
 fecha_afil_dateentry = DateEntry(afiliados_frame, textvariable=mi_fecha_afiliacion, font=('Bold', 20))
-fecha_afil_dateentry.place(x=x_col_der, y=350, width=ancho, height=alto)
+fecha_afil_dateentry.place(x=x_col_der, y=330, width=ancho, height=alto)
 
 mi_rango_salarial = tk.StringVar()
-rango_salarial_entry = tk.OptionMenu(afiliados_frame, mi_rango_salarial, *['A', 'B', 'C'])
-rango_salarial_entry.place(x=x_col_der, y=400, width=ancho, height=alto)
+rango_salarial_entry = tk.Entry(afiliados_frame, textvariable=mi_rango_salarial, font=('Bold', 20))
+salario_entry.place(x=x_col_der, y=230, width=ancho, height=alto)
 
-mi_estado = tk.StringVar()
-estado_entry = tk.OptionMenu(afiliados_frame, mi_estado, *['Activo', 'Inactivo'])
-estado_entry.place(x=x_col_der, y=450, width=ancho, height=alto)
+mi_empresa_afiliado = tk.StringVar()
+empresa_entry = tk.OptionMenu(
+    afiliados_frame, mi_estado_afiliacion,
+    *['80001', '80002', '80003', '80004', '80005', '80006'])
+empresa_entry.place(x=x_col_der, y=430, width=ancho, height=alto)
 
 mi_nombre_empresa = tk.StringVar()
 nombre_empresa_entry = tk.Entry(afiliados_frame, textvariable=mi_nombre_empresa, font=('Bold', 20))
-nombre_empresa_entry.place(x=x_col_der, y=500, width=ancho, height=alto)
+nombre_empresa_entry.place(x=x_col_der, y=480, width=ancho, height=alto)
 
 mi_rut = tk.StringVar()
 rut_entry = tk.Entry(afiliados_frame, textvariable=mi_rut, font=('Bold', 20))
-rut_entry.place(x=x_col_der, y=550, width=ancho, height=alto)
+rut_entry.place(x=x_col_der, y=530, width=ancho, height=alto)
 
 mi_contrato = tk.StringVar()
 contrato_entry = tk.OptionMenu(
-    afiliados_frame, mi_contrato, *['60001', '60002', '60003', '60004', '60005', '60006'])
-contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
+    afiliados_frame, mi_contrato,
+    *['60001', '60002', '60003', '60004', '60005', '60006', '60007', '60008'])
+contrato_entry.place(x=x_col_der, y=580, width=ancho, height=alto)
 
 # Labels
 def etiquetas_afiliados():
     ancho = 225  # original: 200
     alto = 40    # original: 40
     x_col_izq = 50   # original: 20
-    x_col_der = 470  # original: 510
+    x_col_der = 520  # original: 510
     title_label = tk.Label(
         afiliados_frame, text='AFILIADOS', font=('Bold', 40), bg='#139a80', fg='white',
         anchor='s')
@@ -285,21 +287,21 @@ def etiquetas_afiliados():
         afiliados_frame, text='NOMBRE:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
     nombre_label.place(x=x_col_izq, y=180, width=ancho, height=alto)
 
+    apellido_label = tk.Label(
+        afiliados_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    apellido_label.place(x=x_col_izq, y=230, width=ancho, height=alto)
+
     genero_label = tk.Label(
         afiliados_frame, text='GÉNERO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    genero_label.place(x=x_col_izq, y=230, width=ancho, height=alto)
+    genero_label.place(x=x_col_izq, y=280, width=ancho, height=alto)
 
     direccion_label = tk.Label(
         afiliados_frame, text='DIRECCIÓN:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    direccion_label.place(x=x_col_izq, y=280, width=ancho, height=alto)
+    direccion_label.place(x=x_col_izq, y=330, width=ancho, height=alto)
 
     email_label = tk.Label(
         afiliados_frame, text='EMAIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    email_label.place(x=x_col_izq, y=330, width=ancho, height=alto)
-
-    apellido_label = tk.Label(
-        afiliados_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    apellido_label.place(x=x_col_izq, y=380, width=ancho, height=alto)
+    email_label.place(x=x_col_izq, y=380, width=ancho, height=alto)
 
     fecha_nac_label = tk.Label(
         afiliados_frame, text='FECHA NAC:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
@@ -322,49 +324,45 @@ def etiquetas_afiliados():
     ips_label.place(x=x_col_izq, y=630, width=ancho, height=alto)
         
     #-------- COLUMNA DERECHA
-    ordenes_label = tk.Label(
-        afiliados_frame, text='ORDENES:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ordenes_label.place(x=x_col_der, y=100, width=ancho, height=alto)
-    
     parentesco_label = tk.Label(
         afiliados_frame, text='PARENTESCO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    parentesco_label.place(x=x_col_der, y=150, width=ancho, height=alto)
+    parentesco_label.place(x=x_col_der, y=130, width=ancho, height=alto)
     
-    beneficiario_label = tk.Label(
-        afiliados_frame, text='BENEFICIARIO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    beneficiario_label.place(x=x_col_der, y=200, width=ancho, height=alto)
+    cotizante_label = tk.Label(
+        afiliados_frame, text='COTIZANTE:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    cotizante_label.place(x=x_col_der, y=180, width=ancho, height=alto)
     
     salario_label = tk.Label(
         afiliados_frame, text='SALARIO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    salario_label.place(x=x_col_der, y=250, width=ancho, height=alto)
+    salario_label.place(x=x_col_der, y=230, width=ancho, height=alto)
     
     estado_afil_label = tk.Label(
         afiliados_frame, text='ESTADO AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_afil_label.place(x=x_col_der, y=300, width=ancho, height=alto)
+    estado_afil_label.place(x=x_col_der, y=280, width=ancho, height=alto)
     
     fecha_afil_label = tk.Label(
         afiliados_frame, text='FECHA AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    fecha_afil_label.place(x=x_col_der, y=350, width=ancho, height=alto)
+    fecha_afil_label.place(x=x_col_der, y=330, width=ancho, height=alto)
     
     rango_salarial_label = tk.Label(
         afiliados_frame, text='RAN SALARIAL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    rango_salarial_label.place(x=x_col_der, y=400, width=ancho, height=alto)
-   
-    estado_label = tk.Label(
-        afiliados_frame, text='ESTADO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_label.place(x=x_col_der, y=450, width=ancho, height=alto)
+    rango_salarial_label.place(x=x_col_der, y=380, width=ancho, height=alto)
+    
+    empresa_label = tk.Label(
+        afiliados_frame, text='EMPRESA:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    empresa_label.place(x=x_col_der, y=430, width=ancho, height=alto)
     
     nombre_empresa_label = tk.Label(
         afiliados_frame, text='NOM EMPRESA:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    nombre_empresa_label.place(x=x_col_der, y=500, width=ancho, height=alto)
+    nombre_empresa_label.place(x=x_col_der, y=480, width=ancho, height=alto)
     
     rut_label = tk.Label(
         afiliados_frame, text='RUT:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    rut_label.place(x=x_col_der, y=550, width=ancho, height=alto)
+    rut_label.place(x=x_col_der, y=530, width=ancho, height=alto)
     
     contrato_label = tk.Label(
         afiliados_frame, text='CONTRATO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    contrato_label.place(x=x_col_der, y=600, width=ancho, height=alto)
+    contrato_label.place(x=x_col_der, y=580, width=ancho, height=alto)
 
 etiquetas_afiliados()
 
@@ -390,7 +388,6 @@ def deshabilitar_entries_afiliados():
     mi_estado_afiliacion.set('')
     mi_fecha_afiliacion.set('')
     mi_rango_salarial.set('')
-    mi_estado.set('')
     mi_nombre_empresa.set('')
     mi_rut.set('')
     mi_contrato.set('')
@@ -414,7 +411,6 @@ def deshabilitar_entries_afiliados():
     estado_afil_entry.config(state='disabled', bg=color)
     fecha_afil_dateentry.config(state='disabled')
     rango_salarial_entry.config(state='disabled', bg=color)
-    estado_entry.config(state='disabled', bg=color)
     nombre_empresa_entry.config(state='disabled', bg=color)
     rut_entry.config(state='disabled', bg=color)
     contrato_entry.config(state='disabled', bg=color)
@@ -479,7 +475,6 @@ def habilitar_campos_dependiente():
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
     rango_salarial_entry.config(state='normal', bg='white')
-    estado_entry.config(state='normal', bg='white')
     
     btn_guardar.config(state='normal')
 
@@ -551,7 +546,6 @@ def listar():
             mi_salario.set(dependiente[0][13])
             mi_estado_afiliacion.set(dependiente[0][14])
             mi_fecha_afiliacion.set(dependiente[0][15])
-            mi_estado.set(dependiente[0][16])
             mi_rango_salarial.set(dependiente[0][17])
         except Exception as e:
             pass
@@ -608,7 +602,7 @@ def guardar_datos():
             mi_email.get(), f_nac, mi_estado_civil.get(),
             mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
             mi_salario.get(), mi_estado_afiliacion.get(), f_afil, 
-            mi_rango_salarial.get(), mi_estado.get()
+            mi_rango_salarial.get()
         )
         if mi_id.get() == '':
             agregar_dependiente(obj_dependiente)
@@ -904,6 +898,7 @@ num_radicado_entry_contrato = tk.Entry(
     contratos_frame, textvariable=mi_num_radicado_contrado, font=('Bold', 25))
 num_radicado_entry_contrato.place(x=x_col_izq, y=240, width=ancho, height=alto)
 
+mi_estado = tk.StringVar()
 estado_entry_contratos = tk.Entry(contratos_frame, textvariable=mi_estado, font=('Bold', 25))
 estado_entry_contratos.place(x=x_col_izq, y=340, width=ancho, height=alto)
 # derecha --------------
