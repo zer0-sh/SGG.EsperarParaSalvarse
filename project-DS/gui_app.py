@@ -170,10 +170,10 @@ btn_eliminar.config(
     font=('Bold', 25), activebackground=color_btn_presion)
 
 # ENTRIES and DATEENTRIES
-ancho = 230  # original: 200
+ancho = 225  # original: 200
 alto = 40    # original: 40
-x_col_izq = 220  # 220
-x_col_der = 690
+x_col_izq = 275  # 220
+x_col_der = 745
 
 mi_id = tk.StringVar()
 id_entry = tk.Entry(afiliados_frame, textvariable=mi_id, font=('Bold', 20))
@@ -189,43 +189,39 @@ genero_entry.place(x=x_col_izq, y=230, width=ancho, height=alto)
 
 mi_direccion = tk.StringVar()
 direccion_entry = tk.Entry(afiliados_frame, textvariable=mi_direccion, font=('Bold', 20))
-direccion_entry.place(x=x_col_izq, y=380, width=ancho, height=alto)
+direccion_entry.place(x=x_col_izq, y=280, width=ancho, height=alto)
 
 mi_email = tk.StringVar()
 email_entry = tk.Entry(afiliados_frame, textvariable=mi_email, font=('Bold', 20))
-email_entry.place(x=x_col_izq, y=430, width=ancho, height=alto)
+email_entry.place(x=x_col_izq, y=330, width=ancho, height=alto)
 
 mi_apellido = tk.StringVar()
 apellido_entry = tk.Entry(afiliados_frame, textvariable=mi_apellido, font=('Bold', 20))
-apellido_entry.place(x=x_col_izq, y=480, width=ancho, height=alto)
+apellido_entry.place(x=x_col_izq, y=380, width=ancho, height=alto)
 
 mi_fecha_nacimiento = tk.StringVar()
 fecha_nac_dateentry = DateEntry(afiliados_frame, textvariable=mi_fecha_nacimiento, font=('Bold', 20))
-fecha_nac_dateentry.place(x=x_col_izq, y=530, width=ancho, height=alto)
+fecha_nac_dateentry.place(x=x_col_izq, y=430, width=ancho, height=alto)
 
 mi_ciudad = tk.StringVar()
 ciudad_entry = tk.Entry(afiliados_frame, textvariable=mi_ciudad, font=('Bold', 20))
-ciudad_entry.place(x=x_col_izq, y=580, width=ancho, height=alto)
+ciudad_entry.place(x=x_col_izq, y=480, width=ancho, height=alto)
 
 mi_telefono = tk.StringVar()
 telefono_entry = tk.Entry(afiliados_frame, textvariable=mi_telefono, font=('Bold', 20))
-telefono_entry.place(x=x_col_izq, y=630, width=ancho, height=alto)
+telefono_entry.place(x=x_col_izq, y=530, width=ancho, height=alto)
 
 mi_estado_civil = tk.StringVar()
 estado_civil_entry = tk.OptionMenu(
     afiliados_frame, mi_estado_civil, *['Soltero', 'Casado', 'Union Libre'])
-estado_civil_entry.place(x=x_col_izq, y=680, width=ancho, height=alto)
+estado_civil_entry.place(x=x_col_izq, y=580, width=ancho, height=alto)
 
 mi_ips = tk.StringVar()
 ips_entry = tk.OptionMenu(
     afiliados_frame, mi_ips, *['40001', '40002', '40003', '40004', '40005'])
-ips_entry.place(x=x_col_izq, y=650, width=ancho, height=alto)
+ips_entry.place(x=x_col_izq, y=630, width=ancho, height=alto)
 
 #-------- COLUMNA DERRECHA
-mi_ordenes = tk.StringVar()
-ordenes_entry = tk.OptionMenu(
-    afiliados_frame, mi_ordenes, *['20001', '20002', '20003', '20004', '20005', '20006'])
-ordenes_entry.place(x=x_col_der, y=100, width=ancho, height=alto)
 
 mi_parentesco = tk.StringVar()
 parentesco_entry = tk.OptionMenu(
@@ -272,62 +268,58 @@ contrato_entry.place(x=x_col_der, y=600, width=ancho, height=alto)
 
 # Labels
 def etiquetas_afiliados():
-    ancho = 220  # original: 200
+    ancho = 225  # original: 200
     alto = 40    # original: 40
-    x_col_izq = 0   # original: 20
+    x_col_izq = 50   # original: 20
     x_col_der = 470  # original: 510
     title_label = tk.Label(
         afiliados_frame, text='AFILIADOS', font=('Bold', 40), bg='#139a80', fg='white',
         anchor='s')
-    title_label.place(x=450, y=20, width=300, height=60)
+    title_label.place(x=440, y=50, width=400, height=60)
 
     id_label = tk.Label(
         afiliados_frame, text='ID:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    id_label.place(x=x_col_izq, y=100, width=ancho, height=alto)
+    id_label.place(x=x_col_izq, y=130, width=ancho, height=alto)
 
     nombre_label = tk.Label(
         afiliados_frame, text='NOMBRE:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    nombre_label.place(x=x_col_izq, y=150, width=ancho, height=alto)
-
-    apellido_label = tk.Label(
-        afiliados_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    apellido_label.place(x=x_col_izq, y=200, width=ancho, height=alto)
+    nombre_label.place(x=x_col_izq, y=180, width=ancho, height=alto)
 
     genero_label = tk.Label(
         afiliados_frame, text='GÉNERO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    genero_label.place(x=x_col_izq, y=250, width=ancho, height=alto)
+    genero_label.place(x=x_col_izq, y=230, width=ancho, height=alto)
 
     direccion_label = tk.Label(
         afiliados_frame, text='DIRECCIÓN:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    direccion_label.place(x=x_col_izq, y=300, width=ancho, height=alto)
+    direccion_label.place(x=x_col_izq, y=280, width=ancho, height=alto)
 
     email_label = tk.Label(
         afiliados_frame, text='EMAIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    email_label.place(x=x_col_izq, y=350, width=ancho, height=alto)
+    email_label.place(x=x_col_izq, y=330, width=ancho, height=alto)
+
+    apellido_label = tk.Label(
+        afiliados_frame, text='APELLIDO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    apellido_label.place(x=x_col_izq, y=380, width=ancho, height=alto)
 
     fecha_nac_label = tk.Label(
         afiliados_frame, text='FECHA NAC:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    fecha_nac_label.place(x=x_col_izq, y=400, width=ancho, height=alto)
+    fecha_nac_label.place(x=x_col_izq, y=430, width=ancho, height=alto)
 
-    estado_civil_label = tk.Label(
-        afiliados_frame, text='ESTADO CIVIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    estado_civil_label.place(x=x_col_izq, y=450, width=ancho, height=alto)
-
-    tipo_afil_label = tk.Label(
-        afiliados_frame, text='TIPO DE AFIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    tipo_afil_label.place(x=x_col_izq, y=500, width=ancho, height=alto)
+    ciudad_label = tk.Label(
+        afiliados_frame, text='CIUDAD:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    ciudad_label.place(x=x_col_izq, y=480, width=ancho, height=alto)
 
     telefono_label = tk.Label(
         afiliados_frame, text='TELÉFONO:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    telefono_label.place(x=x_col_izq, y=550, width=ancho, height=alto)
-    
-    ciudad_label = tk.Label(
-        afiliados_frame, text='CIUDAD:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ciudad_label.place(x=x_col_izq, y=600, width=ancho, height=alto)
+    telefono_label.place(x=x_col_izq, y=530, width=ancho, height=alto)
+
+    estado_civil_label = tk.Label(
+        afiliados_frame, text='ESTADO CIVIL:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
+    estado_civil_label.place(x=x_col_izq, y=580, width=ancho, height=alto)
 
     ips_label = tk.Label(
         afiliados_frame, text='IPS:', font=('Bold', 20), bg='#139a80', fg='white', anchor='e')
-    ips_label.place(x=x_col_izq, y=650, width=ancho, height=alto)
+    ips_label.place(x=x_col_izq, y=630, width=ancho, height=alto)
         
     #-------- COLUMNA DERECHA
     ordenes_label = tk.Label(
@@ -392,7 +384,6 @@ def deshabilitar_entries_afiliados():
     mi_telefono.set('')
     mi_ciudad.set('')
     mi_ips.set('')
-    mi_ordenes.set('')
     mi_parentesco.set('')
     mi_cotizante.set('')
     mi_salario.set('')
@@ -417,7 +408,6 @@ def deshabilitar_entries_afiliados():
     telefono_entry.config(state='disabled', bg=color)
     ciudad_entry.config(state='disabled', bg=color)
     ips_entry.config(state='disabled', bg=color)
-    ordenes_entry.config(state='disabled', bg=color)
     parentesco_entry.config(state='disabled', bg=color)
     cotizante_entry.config(state='disabled', bg=color)
     salario_entry.config(state='disabled', bg=color)
@@ -465,7 +455,6 @@ def habilitar_campos_beneficiario():
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
-    ordenes_entry.config(state='normal', bg='white')
     parentesco_entry.config(state='normal', bg='white')
     cotizante_entry.config(state='normal', bg='white')
     
@@ -486,7 +475,6 @@ def habilitar_campos_dependiente():
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
-    ordenes_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -507,11 +495,9 @@ def habilitar_campos_independiente():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
-    ordenes_entry.config(state='normal', bg='white')
     salario_entry.config(state='normal', bg='white')
     estado_afil_entry.config(state='normal', bg='white')
     fecha_afil_dateentry.config(state='normal')
@@ -543,7 +529,6 @@ def listar():
             mi_telefono.set(beneficiario[0][9])
             mi_ciudad.set(beneficiario[0][10])
             mi_ips.set(beneficiario[0][11])
-            mi_ordenes.set(beneficiario[0][12])
             mi_parentesco.set(beneficiario[0][13])
             mi_cotizante.set('')    
         except Exception as e:
@@ -563,7 +548,6 @@ def listar():
             mi_telefono.set(dependiente[0][9])
             mi_ciudad.set(dependiente[0][10])
             mi_ips.set(dependiente[0][11])
-            mi_ordenes.set(dependiente[0][12])
             mi_salario.set(dependiente[0][13])
             mi_estado_afiliacion.set(dependiente[0][14])
             mi_fecha_afiliacion.set(dependiente[0][15])
@@ -586,7 +570,6 @@ def listar():
             mi_telefono.set(independiente[0][9])
             mi_ciudad.set(independiente[0][10])
             mi_ips.set(independiente[0][11])
-            mi_ordenes.set(independiente[0][12])
             mi_salario.set(independiente[0][13])
             mi_estado_afiliacion.set(independiente[0][14])
             mi_fecha_afiliacion.set(independiente[0][15])
@@ -609,7 +592,7 @@ def guardar_datos():
         obj_beneficiario = Beneficiarios(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
             mi_email.get(), f_nac, mi_estado_civil.get(),
-            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), 
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
             mi_parentesco.get(), mi_cotizante.get(), 
         )
         if mi_id.get() == '':
@@ -623,7 +606,7 @@ def guardar_datos():
         obj_dependiente = Dependientes(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
             mi_email.get(), f_nac, mi_estado_civil.get(),
-            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
             mi_salario.get(), mi_estado_afiliacion.get(), f_afil, 
             mi_rango_salarial.get(), mi_estado.get()
         )
@@ -638,7 +621,7 @@ def guardar_datos():
         obj_independiente = Independientes(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
             mi_email.get(), f_nac, mi_estado_civil.get(),
-            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
+            mi_telefono.get(), mi_ciudad.get(), mi_ips.get(),
             mi_salario.get(), mi_estado_afiliacion.get(), f_afil, mi_rango_salarial.get(),
             mi_nombre_empresa.get(), mi_rut.get(), mi_contrato.get()
         )
