@@ -3,40 +3,37 @@ from .conexion_bd import conectarBD
 
 class Afiliados:
     def __init__(
-        self, nombres, apellidos, genero, dir, email, f_nac, 
-        est_civ, tip_afil, telf, ciudad, ips, ordenes):
+        self, nombres, genero, dir, email, apellidos,
+        f_nac, ciudad, telf, est_civ, ips):
         
         self.id = None
         self.nombres = nombres
-        self.apellidos = apellidos
         self.genero = genero
         self.direccion = dir
         self.email = email
+        self.apellidos = apellidos
         self.fecha_nacimiento = f_nac
-        self.estado_civil = est_civ
-        self.tipo_afil = tip_afil
-        self.telefono = telf
         self.ciudad = ciudad
+        self.telefono = telf
+        self.estado_civil = est_civ
         self.ips = ips
-        self.ordenes = ordenes
 
 class Beneficiarios(Afiliados):
     def __init__(
-        self, nombres, apellidos, genero, dir, email, f_nac, est_civ, 
-        tip_afil, telf, ciudad, ips, ordenes, parentesco, cotizante):
+        self, nombres, genero, dir, email, apellidos, f_nac, 
+        ciudad, telf, est_civ, ips, parentesco, cotizante):
         super().__init__(
-            nombres, apellidos, genero, dir, email, f_nac, est_civ, 
-            tip_afil, telf, ciudad, ips, ordenes)
+            nombres, genero, dir, email, apellidos, f_nac, 
+            ciudad, telf, est_civ, ips)
         self.parentesco = parentesco
         self.cotizante = cotizante
 
 class Cotizantes(Afiliados):
     def __init__(
-        self, nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil,
-        telf, ciudad, ips, ordenes, salario, estado_afil, f_afil, rango_sal):
+        self, nombres, genero, dir, email, apellidos, f_nac, ciudad,
+        telf, est_civ, ips, salario, estado_afil, f_afil, rango_sal):
         super().__init__(
-            nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil,
-            telf, ciudad, ips, ordenes)
+            nombres, genero, dir, email, apellidos, f_nac, ciudad, telf, est_civ, ips)
         self.salario = salario
         self.estado_afiliacion = estado_afil
         self.fecha_afiliacion = f_afil
@@ -44,27 +41,27 @@ class Cotizantes(Afiliados):
         
 class Dependientes(Cotizantes):
     def __init__(
-        self, nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil, telf, 
-        ciudad, ips, ordenes, salario, estado_afil, f_afil, rango_sal, estado):
+        self, nombres, genero, dir, email, apellidos, f_nac, ciudad, telf, 
+        est_civ, ips, salario, estado_afil, f_afil, rango_sal, empresa):
         super().__init__(
-            nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil, telf, 
-            ciudad, ips, ordenes, salario, estado_afil, f_afil, rango_sal)
-        self.estado = estado
+            nombres, genero, dir, email, apellidos, f_nac, ciudad, telf, est_civ, ips,
+            salario, estado_afil, f_afil, rango_sal)
+        self.empresa = empresa
 
 class Independientes(Cotizantes):
     def __init__(
-        self, nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil, telf, ciudad, ips,
-        ordenes, salario, estado_afil, f_afil, rango_sal, nom_empresa, rut, contrato):
+        self, nombres, genero, dir, email, apellidos, f_nac, ciudad, telf, est_civ, ips, 
+        salario, estado_afil, f_afil, rango_sal, nom_empresa, rut, contrato):
         super().__init__(
-            nombres, apellidos, genero, dir, email, f_nac, est_civ, tip_afil, telf, ciudad, ips,
-            ordenes, salario, estado_afil, f_afil, rango_sal)
+            nombres, genero, dir, email, apellidos, f_nac, ciudad, telf, est_civ, 
+            ips, salario, estado_afil, f_afil, rango_sal)
         self.nombre_empresa = nom_empresa
         self.rut = rut
         self.contrato = contrato
 
 class Empresa:
     def __init__(
-        self, razonsocial,ciudad, direccion, telefono, nombrecontacto, contrato):
+        self, razonsocial,ciudad, direccion, telefono, nombrecontacto):
         self.nit = None
         
         self.razon_social = razonsocial
@@ -72,19 +69,20 @@ class Empresa:
         self.direccion = direccion
         self.telefono = telefono
         self.nombre_contacto = nombrecontacto
-        self.contrato = contrato
 
 class Reporte:
-    def __init__(self, nro_radicado, fecha_recibo):
+    def __init__(self, nro_radicado, fecha_recibo, afiliado, contrato):
         self.num_radicado = nro_radicado
         self.fecha_recibo = fecha_recibo
+        self.afiliado = afiliado
+        self.contrato = contrato
 
 class Contratos:
-    def __init__(self, num_radicado, estado, nit, codigo_reporte):
+    def __init__(self, num_radicado, estado, afiliado, empresa):
         self.num_radicado = num_radicado
         self.estado = estado
-        self.nit = nit
-        self.cod_reporte = codigo_reporte
+        self.afiliado = afiliado
+        self.empresa = empresa
 
 # CONSULT FUNTION
 def consultar(id, tabla):
@@ -154,13 +152,15 @@ def agregar_beneficiario(objeto):
     #objeto = Beneficiarios()
     tam = int(max_tuplas('afiliado', 'id')) + 1
     
-    quary = f"""INSERT INTO beneficiario
-        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
-        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, {objeto.ordenes}, \'{objeto.parentesco}\'
-        );"""
+    quary = f"""INSERT INTO beneficiario(
+	id, nombres, genero, direccion,
+	correoelectronico, apellidos, fnacimiento,
+	ciudadresi, telefono, estadocivil,
+	ips, parentesco, cotizante)
+	VALUES ({tam}, \'{objeto.nombres}\', \'{objeto.genero}\', \'{objeto.direccion}\',
+			\'{objeto.email}\', \'{objeto.apellidos}\', \'{objeto.fecha_nacimiento}\',
+			\'{objeto.ciudad}\', {objeto.telefono}, \'{objeto.estado_civil}\',
+			{objeto.ips}, \'{objeto.parentesco}\', {objeto.cotizante});"""
     
     try:
         conexion.cursor.execute(quary)
@@ -224,11 +224,10 @@ def agregar_empresa(objeto):
     #objeto = Empresa()
     tam = int(max_tuplas('empresa', 'nit')) + 1
     
-    quary = f"""INSERT INTO empresa
-        VALUES({tam}, \'{objeto.razon_social}\', \'{objeto.ciudad}\',
-        \'{objeto.direccion}\', {objeto.telefono},
-        \'{objeto.nombre_contacto}\', {objeto.contrato}
-        );"""
+    quary = f"""INSERT INTO empresa(
+	nit, razonsocial, ciudad, direccion, telefono, nombrecontacto)
+	VALUES ({tam}, \'{objeto.razon_social}\', \'{objeto.ciudad}\',
+    \'{objeto.direccion}\', {objeto.telefono}, \'{objeto.nombre_contacto}\');"""
     
     try:
         conexion.cursor.execute(quary)
@@ -244,9 +243,9 @@ def agregar_contratos(objeto):
     #objeto = Contratos()
     tam = int(max_tuplas('contrato', 'nroradicado')) + 1
     
-    quary = f"""INSERT INTO contrato
-        VALUES({tam}, \'{objeto.estado}\', {objeto.nit}, {objeto.num_radicado}
-        );"""
+    quary = f"""INSERT INTO contrato(
+	nroradicado, estado, afiliado, empresa)
+	VALUES ({tam}, \'{objeto.estado}\', {objeto.afiliado}, {objeto.empresa});"""
     
     try:
         conexion.cursor.execute(quary)
@@ -259,12 +258,12 @@ def agregar_contratos(objeto):
 
 def agregar_reporte(objeto):
     conexion = conectarBD()
-    #objeto = Reporte()
+    objeto = Reporte()
     tam = int(max_tuplas('reporte', 'radicadorepor')) + 1
     
-    quary = f"""INSERT INTO reporte
-        VALUES({tam}, \'{objeto.fecharecibo}\'
-        );"""
+    quary = f"""INSERT INTO reporteretiro(
+	nroradicado, fecharetiro, afiliado, contrato)
+	VALUES ({tam}, \'{objeto.fecha_recibo}\', {objeto.afiliado}, {objeto.contrato});"""
     
     try:
         conexion.cursor.execute(quary)
@@ -278,15 +277,16 @@ def agregar_reporte(objeto):
 # EDIT FUNTIONS
 def editar_beneficiario(objeto, id):
     conexion = conectarBD()
-    objeto = Beneficiarios()
+    #objeto = Beneficiarios()
     
     quary = f"""UPDATE beneficiario
-	SET nombre=\'{objeto.nombres}\', apellido=\'{objeto.apellidos}\', genero=\'{objeto.genero}\', 
-	direccion=\'{objeto.direccion}\', email=\'{objeto.email}\', fnacimiento=\'{objeto.fecha_nacimiento}\',
-	estadocivil=\'{objeto.estado_civil}\', tipoafiliacion=\'{objeto.tipo_afil}\', 
-	telefono={objeto.telefono}, ciudad=\'{objeto.ciudad}\', ips={objeto.ips}, 
-	ordenes={objeto.ordenes}, parentesco=\'{objeto.parentesco}\'
-	WHERE id=\'{id}\';  """
+	SET nombres=\'{objeto.nombres}\', genero=\'{objeto.genero}\',
+    direccion=\'{objeto.direccion}\', correoelectronico=\'{objeto.email}\', 
+    apellidos=\'{objeto.apellidos}\', fnacimiento=\'{objeto.fecha_nacimiento}\', 
+    ciudadresi=\'{objeto.ciudad}\', telefono={objeto.telefono}, 
+    estadocivil=\'{objeto.estado_civil}\', ips={objeto.ips}, 
+    parentesco=\'{objeto.parentesco}\', cotizante={objeto.cotizante}
+	WHERE id={id};"""
     
     try:
         conexion.cursor.execute(quary)
@@ -340,8 +340,8 @@ def editar_empresa(objeto, nit):
     #objeto = Empresa()
     
     quary = f"""UPDATE empresa
-	SET razonsocial='{objeto.razon_social}', ciudad='{objeto.ciudad}', 
-	direccion='{objeto.direccion}', telefono={objeto.telefono},
+	SET razonsocial=\'{objeto.razon_social}\', ciudad=\'{objeto.ciudad}\',
+    direccion=\'{objeto.direccion}\', telefono={objeto.telefono},
     nombrecontacto=\'{objeto.nombre_contacto}\'
 	WHERE nit={nit};"""
     
@@ -354,10 +354,10 @@ def editar_empresa(objeto, nit):
 
 def editar_contratos(objeto, num_radicado):
     conexion = conectarBD()
-    objeto = Contratos()
+    #objeto = Contratos()
     
     quary = f"""UPDATE contrato
-	SET estado='{objeto.estado}', afiliado={objeto.nit}, empresa={objeto.cod_reporte}
+	SET estado=\'{objeto.estado}\', afiliado={objeto.afiliado}, empresa={objeto.empresa}
 	WHERE nroradicado={num_radicado};"""
     
     try:
@@ -369,11 +369,11 @@ def editar_contratos(objeto, num_radicado):
 
 def editar_reporte(objeto, num_radicado):
     conexion = conectarBD()
-    #objeto = Reporte()
+    objeto = Reporte()
     
     quary = f"""UPDATE reporteretiro
-	SET fecharetiro={objeto.fecha_recibo}
-	WHERE nroradicado={num_radicado};"""
+	SET fecharetiro=\'{objeto.fecha_recibo}\', afiliado={objeto.afiliado},
+    contrato={objeto.contrato}	WHERE nroradicado={num_radicado};"""
     
     try:
         conexion.cursor.execute(quary)
@@ -383,28 +383,15 @@ def editar_reporte(objeto, num_radicado):
         messagebox.showerror('ERROR AL EDITAR REPORTE', f'{ex}.')
 
 # DELETE FUNTION
-def eliminar(id):
+def eliminar(id, tabla, tipo):
     conexion = conectarBD()
-    quary = f"""DELETE FROM afiliado WHERE id=\'{id}\';"""
+    quary = f"""DELETE FROM {tabla} WHERE {tipo}={id};"""
     
     try:
         conexion.cursor.execute(quary)
         conexion.cerrar()
         messagebox.showinfo(
             'SE EJECUTO ELMINAR()',
-            f'El afiliado de identifición {id}\nFue eliminado con exito!!')
-    except Exception as ex:
-        messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')
-
-def eliminar_key_int(tabla, nit):
-    conexion = conectarBD()
-    quary = f"""DELETE FROM {tabla} WHERE nit={nit};"""
-    
-    try:
-        conexion.cursor.execute(quary)
-        conexion.cerrar()
-        messagebox.showinfo(
-            'SE EJECUTO ELMINAR()',
-            f'El afiliado de identifición {nit}\nde la tabla \'{tabla}\'.\nFue eliminado con exito!!')
+            f'El afiliado de identifición: {id}\nFue eliminado con exito!!')
     except Exception as ex:
         messagebox.showerror('ERROR AL ELIMINAR', f'{ex}.')

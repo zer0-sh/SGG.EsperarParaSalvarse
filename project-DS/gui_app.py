@@ -4,7 +4,7 @@ from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 from model.entidades import Beneficiarios, Dependientes, Independientes, Empresa, consultar, eliminar
 from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
-from model.entidades import agregar_empresa, eliminar_key_int, consultar_empresa
+from model.entidades import agregar_empresa, consultar_empresa
 from model.entidades import editar_beneficiario, editar_dependiente, editar_independiente
 
 root = tk.Tk()
@@ -25,16 +25,21 @@ root.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight-50
 main_frame = tk.Frame(root, bg='white') 
 """ Generamos un nuevo objeto frame, que se podrá remplazar por otro. 
 Existe dentro de main_frame"""
+# GLOBAL VARIABLES
 valindante = 0
-color_btn_normal = '#0a5245'
-color_btn_presion = '#35BD6F'
+color_btn_normal = '#1a6a60'
+color_btn_presion = '#1f7b70'
+x_atras=50
+y_atras=50
+atras_ancho = 120
+atras_alto = 60
 # ------------------------------------- HOME FRAME --------------------------------------
 home_frame = tk.Frame(main_frame, bg='#139a80')
 
 def aplicar_fondo(frame):
     img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
+    #new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(img)
     img1 = tk.Label(frame, image=render)
     img1.image = render
     img1.place(x=0, y=0)
@@ -58,20 +63,11 @@ home_frame.pack(fill=tk.BOTH, expand=True)
 # ------------------------------------ SECOND FRAME -------------------------------------
 second_frame = tk.Frame(main_frame, bg='#139a80')
 
-
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(second_frame)
 
 # buttons
 btn_second_to_home = tk.Button(second_frame)
-btn_second_to_home.place(x=20, y=30, width=180, height=60)
+btn_second_to_home.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_second_to_home.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
@@ -125,61 +121,53 @@ btn_second_to_home.config(command=go_second_to_home)
 # ------------------------------------- ADMIN FRAME -------------------------------------
 afiliados_frame = tk.Frame(main_frame, bg='#139a80')
 
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(afiliados_frame)
 
 # buttons
 btn_admin_to_second = tk.Button(afiliados_frame)
-btn_admin_to_second.place(x=20, y=30, width=180, height=60)
+btn_admin_to_second.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_admin_to_second.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
 
-alto_btn = 90    # original: 130
-ancho_btn = 320  # original: 280
-x_btn = 940      # original: 980
+alto_btn = 90
+ancho_btn = 240
+x_btn = 990
 btn_consultar_afiliados = tk.Button(afiliados_frame)
-btn_consultar_afiliados.place(x=x_btn, y=100, width=ancho_btn, height=alto_btn)
+btn_consultar_afiliados.place(x=x_btn, y=130, width=ancho_btn, height=alto_btn)
 btn_consultar_afiliados.config(
     text='CONSULTAR', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 25), activebackground=color_btn_presion)
 
 btn_nuevo_beneficiario = tk.Button(afiliados_frame)
-btn_nuevo_beneficiario.place(x=x_btn, y=200, width=ancho_btn, height=alto_btn)
+btn_nuevo_beneficiario.place(x=x_btn, y=220, width=ancho_btn, height=alto_btn)
 btn_nuevo_beneficiario.config(
     text='NUEVO\nBENEFICIARIO', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 25), activebackground=color_btn_presion)
 
 btn_nuevo_dependiente = tk.Button(afiliados_frame)
-btn_nuevo_dependiente.place(x=x_btn, y=300, width=ancho_btn, height=alto_btn)
+btn_nuevo_dependiente.place(x=x_btn, y=310, width=ancho_btn, height=alto_btn)
 btn_nuevo_dependiente.config(
     text='NUEVO\nDEPENDIENTE', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 25), activebackground=color_btn_presion)
 
 btn_nuevo_independiente = tk.Button(afiliados_frame)
 btn_nuevo_independiente.place(x=x_btn, y=400, width=ancho_btn, height=alto_btn)
 btn_nuevo_independiente.config(
     text='NUEVO\nINDEPENDIENTE', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 22), activebackground=color_btn_presion)
 
 btn_guardar = tk.Button(afiliados_frame)
-btn_guardar.place(x=x_btn, y=500, width=ancho_btn, height=alto_btn)
+btn_guardar.place(x=x_btn, y=490, width=ancho_btn, height=alto_btn)
 btn_guardar.config(
     text='GUARDAR', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 25), activebackground=color_btn_presion)
 
 btn_eliminar = tk.Button(afiliados_frame)
-btn_eliminar.place(x=x_btn, y=600, width=ancho_btn, height=alto_btn)
+btn_eliminar.place(x=x_btn, y=580, width=ancho_btn, height=alto_btn)
 btn_eliminar.config(
     text='ELIMINAR', cursor='hand2', bg=color_btn_normal, fg='white',
-    font=('Bold', 28), activebackground=color_btn_presion)
+    font=('Bold', 25), activebackground=color_btn_presion)
 
 # ENTRIES and DATEENTRIES
 ancho = 230  # original: 200
@@ -189,48 +177,44 @@ x_col_der = 690
 
 mi_id = tk.StringVar()
 id_entry = tk.Entry(afiliados_frame, textvariable=mi_id, font=('Bold', 20))
-id_entry.place(x=x_col_izq, y=100, width=ancho, height=alto)
+id_entry.place(x=x_col_izq, y=130, width=ancho, height=alto)
 
 mi_nombre = tk.StringVar()
 nombre_entry = tk.Entry(afiliados_frame, textvariable=mi_nombre, font=('Bold', 20))
-nombre_entry.place(x=x_col_izq, y=150, width=ancho, height=alto)
-
-mi_apellido = tk.StringVar()
-apellido_entry = tk.Entry(afiliados_frame, textvariable=mi_apellido, font=('Bold', 20))
-apellido_entry.place(x=x_col_izq, y=200, width=ancho, height=alto)
+nombre_entry.place(x=x_col_izq, y=180, width=ancho, height=alto)
 
 mi_genero = tk.StringVar()
 genero_entry = tk.OptionMenu(afiliados_frame, mi_genero, *['Masculino', 'Femenino'])
-genero_entry.place(x=x_col_izq, y=250, width=ancho, height=alto)
+genero_entry.place(x=x_col_izq, y=230, width=ancho, height=alto)
 
 mi_direccion = tk.StringVar()
 direccion_entry = tk.Entry(afiliados_frame, textvariable=mi_direccion, font=('Bold', 20))
-direccion_entry.place(x=x_col_izq, y=300, width=ancho, height=alto)
+direccion_entry.place(x=x_col_izq, y=380, width=ancho, height=alto)
 
 mi_email = tk.StringVar()
 email_entry = tk.Entry(afiliados_frame, textvariable=mi_email, font=('Bold', 20))
-email_entry.place(x=x_col_izq, y=350, width=ancho, height=alto)
+email_entry.place(x=x_col_izq, y=430, width=ancho, height=alto)
+
+mi_apellido = tk.StringVar()
+apellido_entry = tk.Entry(afiliados_frame, textvariable=mi_apellido, font=('Bold', 20))
+apellido_entry.place(x=x_col_izq, y=480, width=ancho, height=alto)
 
 mi_fecha_nacimiento = tk.StringVar()
 fecha_nac_dateentry = DateEntry(afiliados_frame, textvariable=mi_fecha_nacimiento, font=('Bold', 20))
-fecha_nac_dateentry.place(x=x_col_izq, y=400, width=ancho, height=alto)
+fecha_nac_dateentry.place(x=x_col_izq, y=530, width=ancho, height=alto)
+
+mi_ciudad = tk.StringVar()
+ciudad_entry = tk.Entry(afiliados_frame, textvariable=mi_ciudad, font=('Bold', 20))
+ciudad_entry.place(x=x_col_izq, y=580, width=ancho, height=alto)
+
+mi_telefono = tk.StringVar()
+telefono_entry = tk.Entry(afiliados_frame, textvariable=mi_telefono, font=('Bold', 20))
+telefono_entry.place(x=x_col_izq, y=630, width=ancho, height=alto)
 
 mi_estado_civil = tk.StringVar()
 estado_civil_entry = tk.OptionMenu(
     afiliados_frame, mi_estado_civil, *['Soltero', 'Casado', 'Union Libre'])
-estado_civil_entry.place(x=x_col_izq, y=450, width=ancho, height=alto)
-
-mi_tipo_afil = tk.StringVar()
-tipo_afil_entry = tk.Entry(afiliados_frame, textvariable=mi_tipo_afil, font=('Bold', 20))
-tipo_afil_entry.place(x=x_col_izq, y=500, width=ancho, height=alto)
-
-mi_telefono = tk.StringVar()
-telefono_entry = tk.Entry(afiliados_frame, textvariable=mi_telefono, font=('Bold', 20))
-telefono_entry.place(x=x_col_izq, y=550, width=ancho, height=alto)
-
-mi_ciudad = tk.StringVar()
-ciudad_entry = tk.Entry(afiliados_frame, textvariable=mi_ciudad, font=('Bold', 20))
-ciudad_entry.place(x=x_col_izq, y=600, width=ancho, height=alto)
+estado_civil_entry.place(x=x_col_izq, y=680, width=ancho, height=alto)
 
 mi_ips = tk.StringVar()
 ips_entry = tk.OptionMenu(
@@ -405,7 +389,6 @@ def deshabilitar_entries_afiliados():
     mi_email.set('')
     mi_fecha_nacimiento.set('')
     mi_estado_civil.set('')
-    mi_tipo_afil.set('')
     mi_telefono.set('')
     mi_ciudad.set('')
     mi_ips.set('')
@@ -431,7 +414,6 @@ def deshabilitar_entries_afiliados():
     email_entry.config(state='disabled', bg=color)
     fecha_nac_dateentry.config(state='disabled')
     estado_civil_entry.config(state='disabled', bg=color)
-    tipo_afil_entry.config(state='disabled', bg=color)
     telefono_entry.config(state='disabled', bg=color)
     ciudad_entry.config(state='disabled', bg=color)
     ips_entry.config(state='disabled', bg=color)
@@ -472,7 +454,6 @@ def habilitar_campos_beneficiario():
     global valindante
     deshabilitar_entries_afiliados()
     valindante = 1
-    mi_tipo_afil.set('Beneficiario')
 
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -481,7 +462,6 @@ def habilitar_campos_beneficiario():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
@@ -495,7 +475,6 @@ def habilitar_campos_dependiente():
     global valindante
     deshabilitar_entries_afiliados()
     valindante = 2
-    mi_tipo_afil.set('Cotizante')
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -504,7 +483,6 @@ def habilitar_campos_dependiente():
     email_entry.config(state='normal', bg='white')
     fecha_nac_dateentry.config(state='normal')
     estado_civil_entry.config(state='normal', bg='white')
-    tipo_afil_entry.config(state='disabled', bg='white')
     telefono_entry.config(state='normal', bg='white')
     ciudad_entry.config(state='normal', bg='white')
     ips_entry.config(state='normal', bg='white')
@@ -521,7 +499,6 @@ def habilitar_campos_independiente():
     global valindante
     deshabilitar_entries_afiliados()
     valindante = 3
-    mi_tipo_afil.set('Cotizante')
     
     nombre_entry.config(state='normal', bg='white')
     apellido_entry.config(state='normal', bg='white')
@@ -563,14 +540,12 @@ def listar():
             mi_email.set(beneficiario[0][5])
             mi_fecha_nacimiento.set(beneficiario[0][6])
             mi_estado_civil.set(beneficiario[0][7])
-            mi_tipo_afil.set(beneficiario[0][8])
             mi_telefono.set(beneficiario[0][9])
             mi_ciudad.set(beneficiario[0][10])
             mi_ips.set(beneficiario[0][11])
             mi_ordenes.set(beneficiario[0][12])
             mi_parentesco.set(beneficiario[0][13])
-            mi_cotizante.set('')
-            
+            mi_cotizante.set('')    
         except Exception as e:
             pass
         
@@ -585,7 +560,6 @@ def listar():
             mi_email.set(dependiente[0][5])
             mi_fecha_nacimiento.set(dependiente[0][6])
             mi_estado_civil.set(dependiente[0][7])
-            mi_tipo_afil.set(dependiente[0][8])
             mi_telefono.set(dependiente[0][9])
             mi_ciudad.set(dependiente[0][10])
             mi_ips.set(dependiente[0][11])
@@ -609,7 +583,6 @@ def listar():
             mi_email.set(independiente[0][5])
             mi_fecha_nacimiento.set(independiente[0][6])
             mi_estado_civil.set(independiente[0][7])
-            mi_tipo_afil.set(independiente[0][8])
             mi_telefono.set(independiente[0][9])
             mi_ciudad.set(independiente[0][10])
             mi_ips.set(independiente[0][11])
@@ -635,7 +608,7 @@ def guardar_datos():
         
         obj_beneficiario = Beneficiarios(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(),
+            mi_email.get(), f_nac, mi_estado_civil.get(),
             mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(), 
             mi_parentesco.get(), mi_cotizante.get(), 
         )
@@ -649,7 +622,7 @@ def guardar_datos():
         
         obj_dependiente = Dependientes(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(),
+            mi_email.get(), f_nac, mi_estado_civil.get(),
             mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
             mi_salario.get(), mi_estado_afiliacion.get(), f_afil, 
             mi_rango_salarial.get(), mi_estado.get()
@@ -664,7 +637,7 @@ def guardar_datos():
         
         obj_independiente = Independientes(
             mi_nombre.get(), mi_apellido.get(), mi_genero.get(), mi_direccion.get(),
-            mi_email.get(), f_nac, mi_estado_civil.get(), mi_tipo_afil.get(), 
+            mi_email.get(), f_nac, mi_estado_civil.get(),
             mi_telefono.get(), mi_ciudad.get(), mi_ips.get(), mi_ordenes.get(),
             mi_salario.get(), mi_estado_afiliacion.get(), f_afil, mi_rango_salarial.get(),
             mi_nombre_empresa.get(), mi_rut.get(), mi_contrato.get()
@@ -678,7 +651,7 @@ def eliminar_tupla():
     llave = str(mi_id.get())
     try:
         listar()
-        eliminar(llave)
+        eliminar(llave, 'afiliado', 'id')
     except Exception as ex:
         messagebox.showerror('Fallo al eliminar', f'{ex}.')
 
@@ -692,19 +665,11 @@ btn_eliminar.config(command=eliminar_tupla)
 # ----------------------------------- EMPRESAS FRAME ------------------------------------
 empresas_frame = tk.Frame(main_frame, bg='#139a80')
 
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(empresas_frame)
 
 # BUTTONS
 btn_empresas_to_second = tk.Button(empresas_frame)
-btn_empresas_to_second.place(x=20, y=30, width=180, height=60)
+btn_empresas_to_second.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_empresas_to_second.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
@@ -898,7 +863,7 @@ def eliminar_empresa():
     llave = str(mi_nit.get())
     try:
         listar()
-        eliminar_key_int('empresa', llave)
+        eliminar(llave, 'empresa', 'nit')
     except Exception as ex:
         messagebox.showerror('FALLO AL ELIMINAR', f'{ex}.')
 
@@ -909,19 +874,11 @@ btn_eliminar_empresas.config(command=eliminar_empresa)
 # ---------------------------------- CONTRATOS FRAME ------------------------------------
 contratos_frame = tk.Frame(main_frame, bg='#139a80')
 
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(contratos_frame)
 
 # BUTTONS
 btn_contratos_to_second = tk.Button(contratos_frame)
-btn_contratos_to_second.place(x=20, y=30, width=180, height=60)
+btn_contratos_to_second.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_contratos_to_second.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
@@ -1023,19 +980,11 @@ btn_contratos_to_second.config(command=go_contratos_to_second)
 # ---------------------------------- REPORTES FRAME -------------------------------------
 reportes_frame = tk.Frame(main_frame, bg='#139a80')
 
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(reportes_frame)
 
 # BUTTONS
 btn_reportes_to_second = tk.Button(reportes_frame)
-btn_reportes_to_second.place(x=20, y=30, width=180, height=60)
+btn_reportes_to_second.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
@@ -1122,19 +1071,11 @@ btn_reportes_to_second.config(command=go_reportes_to_second)
 # ------------------------------------ BANCO FRAME --------------------------------------
 banco_frame = tk.Frame(main_frame, bg='#139a80')
 
-def aplicar_fondo(frame):
-    img = Image.open('project-DS/Administrador Banco.jpg')
-    new_imagen = img.resize((1280,720))
-    render = ImageTk.PhotoImage(new_imagen)
-    img1 = tk.Label(frame, image=render)
-    img1.image = render
-    img1.place(x=0, y=0)
-
 aplicar_fondo(banco_frame)
 
 # BUTTONS
 btn_banco_to_home = tk.Button(banco_frame)
-btn_banco_to_home.place(x=20, y=30, width=180, height=60)
+btn_banco_to_home.place(x=x_atras, y=y_atras, width=atras_ancho, height=atras_alto)
 btn_banco_to_home.config(
     text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
     font=('Bold', 20), activebackground=color_btn_presion)
