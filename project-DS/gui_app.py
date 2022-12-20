@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
+from PIL import Image, ImageTk
 from model.entidades import Beneficiarios, Dependientes, Independientes, Empresa, consultar, eliminar
 from model.entidades import agregar_beneficiario, agregar_dependiente, agregar_independiente
 from model.entidades import agregar_empresa, eliminar_key_int, consultar_empresa
@@ -25,8 +26,16 @@ main_frame = tk.Frame(root, bg='white')
 """ Generamos un nuevo objeto frame, que se podrá remplazar por otro. 
 Existe dentro de main_frame"""
 valindante = 0
-# --------------------------- HOME FRAME ----------------------------
+# ------------------------------------- HOME FRAME --------------------------------------
 home_frame = tk.Frame(main_frame, bg='#139a80')
+
+img = Image.open('Administrador Banco.jpg')
+new_imagen = img.resize((1280,720))
+render = ImageTk.PhotoImage(new_imagen)
+img1 = tk.Label(home_frame, image=render)
+img1.image = render
+img1.place(x=10, y=10)
+
 # buttons
 btn_home_to_admin = tk.Button(home_frame)
 btn_home_to_admin.place(x=390, y=370)
@@ -34,21 +43,21 @@ btn_home_to_admin.config(
     text='ADMINISTRADOR', cursor='hand2', bg='#0a5245', fg='white',
     width=17, height=9, font=('Bold', 18), activebackground='#35BD6F')
 
-btn_home_to_natural = tk.Button(home_frame)
-btn_home_to_natural.place(x=660, y=370)
-btn_home_to_natural.config(
-    text='PRÓXIMAMENTE...', cursor='hand2', bg='#0a5245', fg='white',
+btn_home_to_banco = tk.Button(home_frame)
+btn_home_to_banco.place(x=660, y=370)
+btn_home_to_banco.config(
+    text='BANCO', cursor='hand2', bg='#0a5245', fg='white',
     width=17, height=9, font=('Bold', 18), activebackground='#35BD6F')
 
 home_frame.pack(fill=tk.BOTH, expand=True)
-# -------------------------- SECOND FRAME ---------------------------
+# ------------------------------------ SECOND FRAME -------------------------------------
 second_frame = tk.Frame(main_frame, bg='#139a80')
 # buttons
 btn_second_to_home = tk.Button(second_frame)
 btn_second_to_home.place(x=20, y=30, width=180, height=60)
 btn_second_to_home.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 10), activebackground='#35BD6F')
+    font=('Bold', 20), activebackground='#35BD6F')
 
 btn_second_to_gestionar_afil = tk.Button(second_frame)
 btn_second_to_gestionar_afil.place(
@@ -96,7 +105,7 @@ def go_second_to_home():
 
 btn_home_to_admin.config(command=go_home_to_second)
 btn_second_to_home.config(command=go_second_to_home)
-# --------------------------- ADMIN FRAME ---------------------------
+# ------------------------------------- ADMIN FRAME -------------------------------------
 afiliados_frame = tk.Frame(main_frame, bg='#139a80')
 
 # buttons
@@ -104,7 +113,7 @@ btn_admin_to_second = tk.Button(afiliados_frame)
 btn_admin_to_second.place(x=20, y=30, width=180, height=60)
 btn_admin_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 10), activebackground='#35BD6F')
+    font=('Bold', 20), activebackground='#35BD6F')
 
 alto_btn = 90    # original: 130
 ancho_btn = 320  # original: 280
@@ -653,7 +662,7 @@ btn_nuevo_independiente.config(command=habilitar_campos_independiente)
 btn_guardar.config(command=guardar_datos)
 btn_eliminar.config(command=eliminar_tupla)
 
-# ------------------------- EMPRESAS FRAME --------------------------
+# ----------------------------------- EMPRESAS FRAME ------------------------------------
 empresas_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
@@ -661,7 +670,7 @@ btn_empresas_to_second = tk.Button(empresas_frame)
 btn_empresas_to_second.place(x=20, y=30, width=180, height=60)
 btn_empresas_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 10), activebackground='#35BD6F')
+    font=('Bold', 20), activebackground='#35BD6F')
 
 alto_btn = 80    # original: 90
 ancho_btn = 295  # original: 320
@@ -860,7 +869,7 @@ btn_consultar_empresas.config(command=listar_empresa)
 btn_agregar_empresas.config(command=habilitar_campos_empresa)
 btn_guardar_empresas.config(command=empresa_agregar)
 btn_eliminar_empresas.config(command=eliminar_empresa)
-# ------------------------ CONTRATOS FRAME --------------------------
+# ---------------------------------- CONTRATOS FRAME ------------------------------------
 contratos_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
@@ -868,7 +877,7 @@ btn_contratos_to_second = tk.Button(contratos_frame)
 btn_contratos_to_second.place(x=20, y=30, width=180, height=60)
 btn_contratos_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 10), activebackground='#35BD6F')
+    font=('Bold', 20), activebackground='#35BD6F')
 
 alto_btn = 100    # original: 90
 ancho_btn = 310  # original: 320
@@ -964,7 +973,7 @@ def go_contratos_to_second():
 
 btn_second_to_gestionar_contratos.config(command=go_second_to_contratos)
 btn_contratos_to_second.config(command=go_contratos_to_second)
-# ------------------------ REPORTES FRAME ---------------------------
+# ---------------------------------- REPORTES FRAME -------------------------------------
 reportes_frame = tk.Frame(main_frame, bg='#139a80')
 
 # BUTTONS
@@ -972,8 +981,7 @@ btn_reportes_to_second = tk.Button(reportes_frame)
 btn_reportes_to_second.place(x=20, y=30, width=180, height=60)
 btn_reportes_to_second.config(
     text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 10), activebackground='#35BD6F')
-
+    font=('Bold', 20), activebackground='#35BD6F')
 
 alto_btn = 100
 ancho_btn = 310
@@ -1054,7 +1062,56 @@ def go_reportes_to_second():
 
 btn_second_to_generar_reportes.config(command=go_second_to_reportes)
 btn_reportes_to_second.config(command=go_reportes_to_second)
-# --------------------------- MAIN FRAME ----------------------------
+# ------------------------------------ BANCO FRAME --------------------------------------
+banco_frame = tk.Frame(main_frame, bg='#139a80')
+
+# BUTTONS
+btn_banco_to_home = tk.Button(banco_frame)
+btn_banco_to_home.place(x=20, y=30, width=180, height=60)
+btn_banco_to_home.config(
+    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
+    font=('Bold', 20), activebackground='#35BD6F')
+
+# LABELS
+def etiquetas_banco():
+    title_label = tk.Label(
+        banco_frame, text='BANCO', font=('Bold', 35), bg='#139a80', fg='white',
+        anchor='center')
+    title_label.place(x=520, y=70, width=300, height=60)
+    
+    ancho = 250
+    alto = 80
+    x_col_izq = 120
+    
+    num_radicado_label_reportes = tk.Label(
+        banco_frame, text='      NIT DE\nEMPRESA:', 
+        font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    num_radicado_label_reportes.place(x=x_col_izq, y=260, width=ancho, height=alto)
+
+    fecha_label_reportes = tk.Label(
+        banco_frame, text='       ID DE\nAFILIADO:', 
+        font=('Bold', 30), bg='#139a80', fg='white', anchor='e')
+    fecha_label_reportes.place(x=x_col_izq, y=370, width=ancho, height=alto)
+
+etiquetas_banco()
+
+def go_banco_to_home():
+    try:
+        banco_frame.pack_forget()
+        home_frame.pack(fill=tk.BOTH, expand=True)
+    except:
+        print('ERROR al cambiar de frame')
+
+def go_home_to_banco():
+    try:
+        home_frame.pack_forget()
+        banco_frame.pack(fill=tk.BOTH, expand=True)
+    except:
+        print('ERROR al cambiar de frame')
+
+btn_home_to_banco.config(command=go_home_to_banco)
+btn_banco_to_home.config(command=go_banco_to_home)
+# ------------------------------------- MAIN FRAME --------------------------------------
 main_frame.pack(fill=tk.BOTH, expand=True)
-# -------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 root.mainloop()
