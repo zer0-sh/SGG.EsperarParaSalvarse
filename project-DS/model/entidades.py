@@ -5,8 +5,8 @@ class Afiliados:
     def __init__(
         self, nombres, genero, dir, email, apellidos,
         f_nac, ciudad, telf, est_civ, ips):
-        
         self.id = None
+        
         self.nombres = nombres
         self.genero = genero
         self.direccion = dir
@@ -89,7 +89,7 @@ def consultar(id, tabla):
     conexion = conectarBD()
     
     listar_afiliado = []
-    query = f"""SELECT * FROM {tabla} WHERE id=\'{id}\'"""
+    query = f"""SELECT * FROM {tabla} WHERE id={id}"""
     
     try:
         conexion.cursor.execute(query)
@@ -176,14 +176,17 @@ def agregar_dependiente(objeto):
     #objeto = Dependientes()
     tam = int(max_tuplas('afiliado', 'id')) + 1
     
-    quary = f"""INSERT INTO dependiente
-        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
-        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, {objeto.ordenes}, {objeto.salario}, \'{objeto.estado_afiliacion}\',
-        \'{objeto.fecha_afiliacion}\', \'{objeto.estado}\', \'{objeto.rango_salarial}\'
-        );"""
+    quary = f"""INSERT INTO dependiente(
+	id, nombres, genero, direccion,
+	correoelectronico, apellidos, fnacimiento,
+	ciudadresi, telefono, estadocivil,
+	ips, salario, estadoafiliacion,
+	fechaprimeraafiliacion, rangosalarial, empresa)
+	VALUES ({tam}, \'{objeto.nombres}\', \'{objeto.genero}\', \'{objeto.direccion}\',
+			\'{objeto.email}\', \'{objeto.apellidos}\', \'{objeto.fecha_nacimiento}\',
+			\'{objeto.ciudad}\', {objeto.telefono}, \'{objeto.estado_civil}\',
+			{objeto.ips}, {objeto.salario}, \'{objeto.estado_afiliacion}\',
+			\'{objeto.fecha_afiliacion}\', {objeto.rango_salarial}, {objeto.empresa});"""
     
     try:
         conexion.cursor.execute(quary)
@@ -199,16 +202,19 @@ def agregar_independiente(objeto):
     #objeto = Independientes()
     tam = int(max_tuplas('afiliado', 'id')) + 1
     
-    quary = f"""INSERT INTO independiente
-        VALUES(\'{tam}\', \'{objeto.nombres}\', \'{objeto.apellidos}\',
-        \'{objeto.genero}\', \'{objeto.direccion}\', \'{objeto.email}\',
-        \'{objeto.fecha_nacimiento}\', \'{objeto.estado_civil}\', 
-        \'{objeto.tipo_afil}\', {objeto.telefono}, \'{objeto.ciudad}\',
-        {objeto.ips}, {objeto.ordenes}, {objeto.salario},
-        \'{objeto.estado_afiliacion}\', \'{objeto.fecha_afiliacion}\',
-        \'{objeto.nombre_empresa}\', {objeto.rut}, \'{objeto.contrato}\', 
-        \'{objeto.rango_salarial}\'
-        );"""
+    quary = f"""INSERT INTO public.independiente(
+	id, nombres, genero, direccion,
+	correoelectronico, apellidos, fnacimiento,
+	ciudadresi, telefono, estadocivil,
+	ips, salario, estadoafiliacion,
+	fechaprimeraafiliacion, rangosalarial, nombreempresa,
+	rut, contrato)
+	VALUES ({tam}, \'{objeto.nombres}\', \'{objeto.genero}\', \'{objeto.direccion}\',
+			\'{objeto.email}\', \'{objeto.apellidos}\', \'{objeto.fecha_nacimiento}\',
+			\'{objeto.ciudad}\', {objeto.telefono}, \'{objeto.estado_civil}\',
+			{objeto.ips}, {objeto.salario}, \'{objeto.estado_afiliacion}\',
+			\'{objeto.fecha_afiliacion}\', {objeto.rango_salarial}, \'{objeto.nombre_empresa}\',
+			{objeto.rut}, {objeto.contrato});"""
     
     try:
         conexion.cursor.execute(quary)
