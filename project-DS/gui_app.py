@@ -26,66 +26,83 @@ main_frame = tk.Frame(root, bg='white')
 """ Generamos un nuevo objeto frame, que se podrá remplazar por otro. 
 Existe dentro de main_frame"""
 valindante = 0
+color_btn_normal = '#0a5245'
+color_btn_presion = '#35BD6F'
 # ------------------------------------- HOME FRAME --------------------------------------
 home_frame = tk.Frame(main_frame, bg='#139a80')
 
-img = Image.open('Administrador Banco.jpg')
-new_imagen = img.resize((1280,720))
-render = ImageTk.PhotoImage(new_imagen)
-img1 = tk.Label(home_frame, image=render)
-img1.image = render
-img1.place(x=10, y=10)
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(home_frame)
 
 # buttons
 btn_home_to_admin = tk.Button(home_frame)
 btn_home_to_admin.place(x=390, y=370)
 btn_home_to_admin.config(
-    text='ADMINISTRADOR', cursor='hand2', bg='#0a5245', fg='white',
-    width=17, height=9, font=('Bold', 18), activebackground='#35BD6F')
+    text='ADMINISTRADOR', cursor='hand2', bg=color_btn_normal, fg='white',
+    width=17, height=9, font=('Bold', 18), activebackground=color_btn_presion)
 
 btn_home_to_banco = tk.Button(home_frame)
 btn_home_to_banco.place(x=660, y=370)
 btn_home_to_banco.config(
-    text='BANCO', cursor='hand2', bg='#0a5245', fg='white',
-    width=17, height=9, font=('Bold', 18), activebackground='#35BD6F')
+    text='BANCO', cursor='hand2', bg=color_btn_normal, fg='white',
+    width=17, height=9, font=('Bold', 18), activebackground=color_btn_presion)
 
 home_frame.pack(fill=tk.BOTH, expand=True)
 # ------------------------------------ SECOND FRAME -------------------------------------
 second_frame = tk.Frame(main_frame, bg='#139a80')
+
+
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(second_frame)
+
 # buttons
 btn_second_to_home = tk.Button(second_frame)
 btn_second_to_home.place(x=20, y=30, width=180, height=60)
 btn_second_to_home.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 btn_second_to_gestionar_afil = tk.Button(second_frame)
 btn_second_to_gestionar_afil.place(
     x=250, y=320, width=370, height=150)
 btn_second_to_gestionar_afil.config(
-    text='GESTIONAR\nAFILIACIÓN', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='GESTIONAR\nAFILIACIÓN', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 btn_second_to_gestionar_empresas = tk.Button(second_frame)
 btn_second_to_gestionar_empresas.place(
     x=250, y=500, width=370, height=150)
 btn_second_to_gestionar_empresas.config(
-    text='GESTIONAR\nEMPRESAS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='GESTIONAR\nEMPRESAS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 btn_second_to_gestionar_contratos = tk.Button(second_frame)
 btn_second_to_gestionar_contratos.place(
     x=650, y=320, width=370, height=150)
 btn_second_to_gestionar_contratos.config(
-    text='GESTIONAR\nCONTRATORS IPS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='GESTIONAR\nCONTRATORS IPS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 btn_second_to_generar_reportes = tk.Button(second_frame)
 btn_second_to_generar_reportes.place(
     x=650, y=500, width=370, height=150)
 btn_second_to_generar_reportes.config(
-    text='GENERAR\nREPORTES', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='GENERAR\nREPORTES', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 def go_home_to_second():
     deshabilitar_entries_afiliados()
@@ -108,12 +125,22 @@ btn_second_to_home.config(command=go_second_to_home)
 # ------------------------------------- ADMIN FRAME -------------------------------------
 afiliados_frame = tk.Frame(main_frame, bg='#139a80')
 
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(afiliados_frame)
+
 # buttons
 btn_admin_to_second = tk.Button(afiliados_frame)
 btn_admin_to_second.place(x=20, y=30, width=180, height=60)
 btn_admin_to_second.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 alto_btn = 90    # original: 130
 ancho_btn = 320  # original: 280
@@ -121,38 +148,38 @@ x_btn = 940      # original: 980
 btn_consultar_afiliados = tk.Button(afiliados_frame)
 btn_consultar_afiliados.place(x=x_btn, y=100, width=ancho_btn, height=alto_btn)
 btn_consultar_afiliados.config(
-    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='CONSULTAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_nuevo_beneficiario = tk.Button(afiliados_frame)
 btn_nuevo_beneficiario.place(x=x_btn, y=200, width=ancho_btn, height=alto_btn)
 btn_nuevo_beneficiario.config(
-    text='NUEVO\nBENEFICIARIO', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='NUEVO\nBENEFICIARIO', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_nuevo_dependiente = tk.Button(afiliados_frame)
 btn_nuevo_dependiente.place(x=x_btn, y=300, width=ancho_btn, height=alto_btn)
 btn_nuevo_dependiente.config(
-    text='NUEVO\nDEPENDIENTE', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='NUEVO\nDEPENDIENTE', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_nuevo_independiente = tk.Button(afiliados_frame)
 btn_nuevo_independiente.place(x=x_btn, y=400, width=ancho_btn, height=alto_btn)
 btn_nuevo_independiente.config(
-    text='NUEVO\nINDEPENDIENTE', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='NUEVO\nINDEPENDIENTE', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_guardar = tk.Button(afiliados_frame)
 btn_guardar.place(x=x_btn, y=500, width=ancho_btn, height=alto_btn)
 btn_guardar.config(
-    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='GUARDAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_eliminar = tk.Button(afiliados_frame)
 btn_eliminar.place(x=x_btn, y=600, width=ancho_btn, height=alto_btn)
 btn_eliminar.config(
-    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='ELIMINAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 # ENTRIES and DATEENTRIES
 ancho = 230  # original: 200
@@ -665,12 +692,22 @@ btn_eliminar.config(command=eliminar_tupla)
 # ----------------------------------- EMPRESAS FRAME ------------------------------------
 empresas_frame = tk.Frame(main_frame, bg='#139a80')
 
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(empresas_frame)
+
 # BUTTONS
 btn_empresas_to_second = tk.Button(empresas_frame)
 btn_empresas_to_second.place(x=20, y=30, width=180, height=60)
 btn_empresas_to_second.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 alto_btn = 80    # original: 90
 ancho_btn = 295  # original: 320
@@ -678,26 +715,26 @@ y_btn = 570      # original: 650
 btn_consultar_empresas = tk.Button(empresas_frame)
 btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_consultar_empresas.config(
-    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='CONSULTAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_agregar_empresas = tk.Button(empresas_frame)
 btn_agregar_empresas.place(x=335, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_agregar_empresas.config(
-    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='AGREGAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_guardar_empresas = tk.Button(empresas_frame)
 btn_guardar_empresas.place(x=650, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_guardar_empresas.config(
-    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='GUARDAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_eliminar_empresas = tk.Button(empresas_frame)
 btn_eliminar_empresas.place(x=965, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_eliminar_empresas.config(
-    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='ELIMINAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 #ENTRIES
 ancho = 310
@@ -872,12 +909,22 @@ btn_eliminar_empresas.config(command=eliminar_empresa)
 # ---------------------------------- CONTRATOS FRAME ------------------------------------
 contratos_frame = tk.Frame(main_frame, bg='#139a80')
 
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(contratos_frame)
+
 # BUTTONS
 btn_contratos_to_second = tk.Button(contratos_frame)
 btn_contratos_to_second.place(x=20, y=30, width=180, height=60)
 btn_contratos_to_second.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 alto_btn = 100    # original: 90
 ancho_btn = 310  # original: 320
@@ -885,26 +932,26 @@ y_btn = 550      # original: 650
 btn_consultar_empresas = tk.Button(contratos_frame)
 btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_consultar_empresas.config(
-    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='CONSULTAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_agregar_empresas = tk.Button(contratos_frame)
 btn_agregar_empresas.place(x=330, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_agregar_empresas.config(
-    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='AGREGAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_guardar_empresas = tk.Button(contratos_frame)
 btn_guardar_empresas.place(x=640, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_guardar_empresas.config(
-    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='GUARDAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 btn_eliminar_empresas = tk.Button(contratos_frame)
 btn_eliminar_empresas.place(x=950, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_eliminar_empresas.config(
-    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 28), activebackground='#35BD6F')
+    text='ELIMINAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 28), activebackground=color_btn_presion)
 
 #ENTRIES
 ancho = 310
@@ -976,12 +1023,22 @@ btn_contratos_to_second.config(command=go_contratos_to_second)
 # ---------------------------------- REPORTES FRAME -------------------------------------
 reportes_frame = tk.Frame(main_frame, bg='#139a80')
 
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(reportes_frame)
+
 # BUTTONS
 btn_reportes_to_second = tk.Button(reportes_frame)
 btn_reportes_to_second.place(x=20, y=30, width=180, height=60)
 btn_reportes_to_second.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 alto_btn = 100
 ancho_btn = 310
@@ -989,26 +1046,26 @@ y_btn = 540
 btn_consultar_empresas = tk.Button(reportes_frame)
 btn_consultar_empresas.place(x=20, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_consultar_empresas.config(
-    text='CONSULTAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 30), activebackground='#35BD6F')
+    text='CONSULTAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 30), activebackground=color_btn_presion)
 
 btn_agregar_empresas = tk.Button(reportes_frame)
 btn_agregar_empresas.place(x=330, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_agregar_empresas.config(
-    text='AGREGAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 30), activebackground='#35BD6F')
+    text='AGREGAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 30), activebackground=color_btn_presion)
 
 btn_guardar_empresas = tk.Button(reportes_frame)
 btn_guardar_empresas.place(x=640, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_guardar_empresas.config(
-    text='GUARDAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 30), activebackground='#35BD6F')
+    text='GUARDAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 30), activebackground=color_btn_presion)
 
 btn_eliminar_empresas = tk.Button(reportes_frame)
 btn_eliminar_empresas.place(x=950, y=y_btn, width=ancho_btn, height=alto_btn)
 btn_eliminar_empresas.config(
-    text='ELIMINAR', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 30), activebackground='#35BD6F')
+    text='ELIMINAR', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 30), activebackground=color_btn_presion)
 
 #ENTRIES
 ancho = 810
@@ -1065,12 +1122,22 @@ btn_reportes_to_second.config(command=go_reportes_to_second)
 # ------------------------------------ BANCO FRAME --------------------------------------
 banco_frame = tk.Frame(main_frame, bg='#139a80')
 
+def aplicar_fondo(frame):
+    img = Image.open('project-DS/Administrador Banco.jpg')
+    new_imagen = img.resize((1280,720))
+    render = ImageTk.PhotoImage(new_imagen)
+    img1 = tk.Label(frame, image=render)
+    img1.image = render
+    img1.place(x=0, y=0)
+
+aplicar_fondo(banco_frame)
+
 # BUTTONS
 btn_banco_to_home = tk.Button(banco_frame)
 btn_banco_to_home.place(x=20, y=30, width=180, height=60)
 btn_banco_to_home.config(
-    text='ATRÁS', cursor='hand2', bg='#0a5245', fg='white',
-    font=('Bold', 20), activebackground='#35BD6F')
+    text='ATRÁS', cursor='hand2', bg=color_btn_normal, fg='white',
+    font=('Bold', 20), activebackground=color_btn_presion)
 
 # LABELS
 def etiquetas_banco():
